@@ -5,7 +5,12 @@
  */
 package trabjava;
 
+/**
+ *
+ * @author JotaWind
+ */
+public class ModeloMotocicleta {
 
-public class VeiculoImpl extends Veiculo {
-    
+    private int id;
+    private String nome;
 }

@@ -9,7 +9,7 @@ package trabjava;
  *
  * @author JotaWind
  */
-public abstract class Veiculo implements VeiculoI{
+public abstract class Veiculo implements VeiculoI {
 
     private Double valorDeCompra;
     private String placa;
@@ -18,8 +18,15 @@ public abstract class Veiculo implements VeiculoI{
     private Estado estado;
     private Categoria categoria;
 
-    
-    
+    public Veiculo(Double valorDeCompra, String placa, int ano, Marca marca, Estado estado, Categoria categoria) {
+        this.valorDeCompra = valorDeCompra;
+        this.placa = placa;
+        this.ano = ano;
+        this.marca = marca;
+        this.estado = estado;
+        this.categoria = categoria;
+    }
+
     public Double getValorDeCompra() {
         return valorDeCompra;
     }
@@ -67,5 +74,5 @@ public abstract class Veiculo implements VeiculoI{
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-    
+
 }
