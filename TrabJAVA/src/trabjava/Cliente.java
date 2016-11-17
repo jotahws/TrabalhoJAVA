@@ -10,5 +10,6 @@ package trabjava;
  * @author JotaWind
  */
 public class Cliente {
+
     private String nome;
 }
