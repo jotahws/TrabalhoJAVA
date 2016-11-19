@@ -9,25 +9,26 @@ package trabjava;
  *
  * @author JotaWind
  */
-class Marca {
+public enum Marca {
+    vw("Volkswagen"),
+    chevrolet("Chevrolet"),
+    fiat("fiat"),
+    honda("Honda"),
+    hyundai("Hyundai"),
+    renault("Renault");
 
-    private int id;
-    private String nome;
+    private final String name;
 
-    public int getId() {
-        return id;
+    private Marca(String s) {
+        name = s;
     }
 
-    public String getNome() {
-        return nome;
+    public boolean equalsName(String otherName) {
+        return (otherName == null) ? false : name.equals(otherName);
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String toString() {
+        return this.name;
     }
 
 }

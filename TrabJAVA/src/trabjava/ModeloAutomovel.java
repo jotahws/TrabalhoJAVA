@@ -9,25 +9,30 @@ package trabjava;
  *
  * @author JotaWind
  */
-public class ModeloAutomovel {
+public enum ModeloAutomovel {
 
-    private int id;
-    private String nome;
+    gol("Gol"),
+    celta("Celta"),
+    palio("Palio"),
+    sandero("Sandero"),
+    clio("Clio"),
+    uno("Uno"),
+    up("Up"),
+    onix("Onix"),
+    hb("HB20"),
+    AMG("AMG-GT");
+    
+    private final String name;
 
-    public int getId() {
-        return id;
+    private ModeloAutomovel(String s) {
+        name = s;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public boolean equalsName(String otherName) {
+        return (otherName == null) ? false : name.equals(otherName);
     }
 
-    public String getNome() {
-        return nome;
+    public String toString() {
+        return this.name;
     }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
 }

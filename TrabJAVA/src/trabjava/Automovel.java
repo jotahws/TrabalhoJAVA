@@ -13,21 +13,23 @@ import java.util.Calendar;
  */
 public class Automovel extends Veiculo {
 
-    private String modelo;
+    private ModeloAutomovel modelo;
 
-    public Automovel(String modelo, Double valorDeCompra, String placa, int ano, Marca marca, Estado estado, Categoria categoria) {
+    public Automovel(ModeloAutomovel modelo, Double valorDeCompra, String placa, int ano, Marca marca, Estado estado, Categoria categoria) {
         super(valorDeCompra, placa, ano, marca, estado, categoria);
         this.modelo = modelo;
     }
 
-    public String getModelo() {
+    public ModeloAutomovel getModelo() {
         return modelo;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    @Override
+    public double getValorDiariaLocacao(){
+       //retornar o valor da locação de acordo com a sua categoria
+       return 0.0;
     }
-
+    
     @Override
     public void locar(int dias, Calendar data, Cliente cliente) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -44,7 +46,32 @@ public class Automovel extends Veiculo {
     }
 
     @Override
+    public Estado getEstado() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Marca getMarca() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Categoria getCategoria() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public Locacao getLocacao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getPlaca() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getAno() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -53,9 +80,5 @@ public class Automovel extends Veiculo {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public double getValorDiariaLocacao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

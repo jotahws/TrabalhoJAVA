@@ -17,6 +17,7 @@ public abstract class Veiculo implements VeiculoI {
     private Marca marca;
     private Estado estado;
     private Categoria categoria;
+    private Locacao locacao;
 
     public Veiculo(Double valorDeCompra, String placa, int ano, Marca marca, Estado estado, Categoria categoria) {
         this.valorDeCompra = valorDeCompra;
@@ -25,54 +26,7 @@ public abstract class Veiculo implements VeiculoI {
         this.marca = marca;
         this.estado = estado;
         this.categoria = categoria;
-    }
-
-    public Double getValorDeCompra() {
-        return valorDeCompra;
-    }
-
-    public void setValorDeCompra(Double valorDeCompra) {
-        this.valorDeCompra = valorDeCompra;
-    }
-
-    public String getPlaca() {
-        return placa;
-    }
-
-    public void setPlaca(String placa) {
-        this.placa = placa;
-    }
-
-    public int getAno() {
-        return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-
-    public Marca getMarca() {
-        return marca;
-    }
-
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
-
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+        this.locacao = null;
     }
 
 }

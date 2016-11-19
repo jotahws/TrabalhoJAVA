@@ -9,25 +9,25 @@ package trabjava;
  *
  * @author JotaWind
  */
-public class ModeloVan {
+public enum ModeloVan {
 
-    private int id;
-    private String nome;
+    kombi("Kombi"),
+    sprinter("Sprinter"),
+    transit("Transit"),
+    ducato("Ducato");
+    
+    private final String name;
 
-    public int getId() {
-        return id;
+    private ModeloVan(String s) {
+        name = s;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public boolean equalsName(String otherName) {
+        return (otherName == null) ? false : name.equals(otherName);
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String toString() {
+        return this.name;
     }
 
 }

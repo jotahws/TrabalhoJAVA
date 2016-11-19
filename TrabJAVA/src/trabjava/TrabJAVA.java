@@ -15,7 +15,12 @@ public class TrabJAVA {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        System.out.println("1-listar clientes\n"
+                + "2-atualizar dados de cliente\n"
+                + "3-Excluir clientes\n"
+                + "4-incluir cliente\n"
+                + "5-incluir veículo\n"
+                + "");
     }
     
 }

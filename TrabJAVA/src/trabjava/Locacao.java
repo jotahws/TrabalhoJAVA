@@ -13,48 +13,28 @@ import java.util.Calendar;
  */
 public class Locacao {
 
-    private String dias;
-    private String valor;
+    private int dias;
+    private double valor;
     private Calendar data;
-    private String cliente;
+    private Cliente cliente;
 
-    public Locacao(String dias, String valor, Calendar calendar, String cliente) {
+    public Locacao(int dias, double valor, Calendar data, Cliente cliente) {
         this.dias = dias;
         this.valor = valor;
-        this.data = calendar;
+        this.data = data;
         this.cliente = cliente;
     }
 
-    public String getDias() {
-        return dias;
-    }
-
-    public void setDias(String dias) {
-        this.dias = dias;
-    }
-
-    public String getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
-
-    public Calendar getCalendar() {
+    public Calendar getData() {
         return data;
     }
 
-    public void setCalendar(Calendar calendar) {
-        this.data = calendar;
-    }
-
-    public String getCliente() {
+    public Cliente getCliente() {
         return cliente;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
     }
 
 }
