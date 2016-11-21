@@ -15,9 +15,9 @@ public class Cliente {
     private String sobrenome;
     private String rg;
     private String cpf;
-    private String endereco;
+    private Endereco endereco;
 
-    public Cliente(String nome, String sobrenome, String rg, String cpf, String endereco) {
+    public Cliente(String nome, String sobrenome, String rg, String cpf, Endereco endereco) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.rg = rg;
@@ -57,11 +57,11 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public String getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 

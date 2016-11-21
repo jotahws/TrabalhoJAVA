@@ -5,6 +5,8 @@
  */
 package trabjava;
 
+import java.util.Scanner;
+
 /**
  *
  * @author JotaWind
@@ -20,7 +22,54 @@ public class TrabJAVA {
                 + "3-Excluir clientes\n"
                 + "4-incluir cliente\n"
                 + "5-incluir veículo\n"
-                + "");
+                + "6-Locar veiculo\n"
+                + "7-devolver veiculo\n");
+        Scanner scn = new Scanner(System.in);
+        int opc = scn.nextInt();
+        switch (opc) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                inserirCliente();
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+        }
     }
-    
+
+    private static void inserirCliente() {
+        Scanner scn = new Scanner(System.in);
+        System.out.println("nome");
+        String nome = scn.next();
+        System.out.println("sobrenome");
+        String sobrenome = scn.next();
+        System.out.println("cpf");
+        String cpf = scn.next();
+        System.out.println("rg");
+        String rg = scn.next();
+        System.out.println("rua");
+        String rua = scn.next();
+        System.out.println("cidade");
+        String cidade = scn.next();
+        System.out.println("bairro");
+        String bairro = scn.next();
+        System.out.println("numero");
+        String numero = scn.next();
+        System.out.println("complemento");
+        String complemento = scn.next();
+
+        Endereco endereco = new Endereco(rua, cidade, bairro, numero, complemento);
+        Cliente cliente = new Cliente(nome, sobrenome, cpf, rg, endereco);
+        ClienteDAO clientedao = new ClienteDAO();
+        clientedao.inserirCliente(cliente);
+    }
+
 }
