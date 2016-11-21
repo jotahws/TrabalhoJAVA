@@ -37,6 +37,7 @@ public class TrabJAVA {
                 inserirCliente();
                 break;
             case 5:
+                inserirVeiculo();
                 break;
             case 6:
                 break;
@@ -70,6 +71,19 @@ public class TrabJAVA {
         Cliente cliente = new Cliente(nome, sobrenome, cpf, rg, endereco);
         ClienteDAO clientedao = new ClienteDAO();
         clientedao.inserirCliente(cliente);
+    }
+
+    private static void inserirVeiculo() {
+        Scanner scn = new Scanner(System.in);
+        System.out.println("valor compra");
+        double valorCompra = scn.nextDouble();
+        System.out.println("placa");
+        String placa = scn.next();
+        System.out.println("ano");
+        int ano = scn.nextInt();
+        
+        Veiculo veiculo = new Motocicleta(ModeloMotocicleta.F, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.POPULAR);
+        
     }
 
 }
