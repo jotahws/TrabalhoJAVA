@@ -27,8 +27,8 @@ public class VeiculoDAO {
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(insertCliente);
-            stmt.setString(1, veiculo.getNome());
-            stmt.setString(2, veiculo.getSobrenome());
+            stmt.setString(1, veiculo.get());
+            stmt.setString(2, veiculo.get());
             stmt.setString(3, veiculo.getCpf());
             stmt.setString(4, veiculo.getRg());
             stmt.setInt(5, endereco.getId());
