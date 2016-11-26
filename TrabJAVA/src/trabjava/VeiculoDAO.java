@@ -9,6 +9,7 @@ import Conexao.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 /**
  *
@@ -16,25 +17,24 @@ import java.sql.SQLException;
  */
 public class VeiculoDAO {
 
-    private String insertCliente = "INSERT INTO CLIENTE (nome, sobrenome, cpf, rg, endereco) VALUES (?,?,?,?,?)";
+    private String insertVeiculo = "INSERT INTO VEICULO (valor_compra, placa, ano, "
+            + "marca, estado, categoria) VALUES (?,?,?,?,?,?)";
     private Connection con = null;
     private PreparedStatement stmt = null;
 
     public void inserirVeiculo(Veiculo veiculo) {
-        Endereco endereco = veiculo.getEndereco();
-        EnderecoDAO enderecodao = new EnderecoDAO();
-        enderecodao.inserirEndereco(endereco);
         try {
             con = new ConnectionFactory().getConnection();
-            stmt = con.prepareStatement(insertCliente);
-            stmt.setString(1, veiculo.get());
-            stmt.setString(2, veiculo.get());
-            stmt.setString(3, veiculo.getCpf());
-            stmt.setString(4, veiculo.getRg());
-            stmt.setInt(5, endereco.getId());
+            stmt = con.prepareStatement(insertVeiculo);
+            stmt.setDouble(1, calculaValorDeCompra(veiculo.getValorParaVenda(),veiculo.getAno()));
+            stmt.setString(2, veiculo.getPlaca());
+            stmt.setInt(3, veiculo.getAno());
+            stmt.setString(4, veiculo.getMarca().toString());
+            stmt.setString(5, veiculo.getEstado().toString());
+            stmt.setString(6, veiculo.getCategoria().toString());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao criar cliente: \n" + ex.getMessage());
+            throw new RuntimeException("Erro ao inserir veículo: \n" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
@@ -43,5 +43,15 @@ public class VeiculoDAO {
                 System.out.println("Erro ao fechar Statment ou fechar conexão");
             }
         }
+    }
+    
+    private double calculaValorDeCompra(double valorVenda, int ano){
+        Calendar c = Calendar.getInstance();
+        int idade = c.get(Calendar.YEAR) - ano;
+        double valorCompra = valorVenda/(1-0.15*idade);
+        if (valorVenda < (valorCompra*0.1)){
+            return valorVenda/0.1;
+        }
+        return valorCompra;
     }
 }
