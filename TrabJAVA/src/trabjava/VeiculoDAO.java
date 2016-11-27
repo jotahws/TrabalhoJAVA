@@ -8,6 +8,7 @@ package trabjava;
 import Conexao.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 
@@ -22,7 +23,7 @@ public class VeiculoDAO {
     private Connection con = null;
     private PreparedStatement stmt = null;
 
-    public void inserirVeiculo(Veiculo veiculo) {
+    public int inserirVeiculo(Veiculo veiculo) {
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(insertVeiculo);
@@ -33,6 +34,11 @@ public class VeiculoDAO {
             stmt.setString(5, veiculo.getEstado().toString());
             stmt.setString(6, veiculo.getCategoria().toString());
             stmt.executeUpdate();
+            final ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                final int enderecoID = rs.getInt(1);
+                return enderecoID;
+            }
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao inserir veículo: \n" + ex.getMessage());
         } finally {
@@ -48,9 +54,10 @@ public class VeiculoDAO {
     private double calculaValorDeCompra(double valorVenda, int ano){
         Calendar c = Calendar.getInstance();
         int idade = c.get(Calendar.YEAR) - ano;
-        double valorCompra = valorVenda/(1-0.15*idade);
-        if (valorVenda < (valorCompra*0.1)){
-            return valorVenda/0.1;
+        double valorCompra = (1-0.15*idade)/valorVenda;
+        if (valorCompra<0){
+            valorCompra = (valorVenda/0.1);
+            return valorCompra;
         }
         return valorCompra;
     }

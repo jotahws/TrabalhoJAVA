@@ -85,6 +85,8 @@ public class TrabJAVA {
         Veiculo veiculo = new Motocicleta(ModeloMotocicleta.F, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.POPULAR);
         VeiculoDAO v = new VeiculoDAO();
         v.inserirVeiculo(veiculo);
+        MotocicletaDAO m = new MotocicletaDAO();
+        m.inserirMotocicleta(veiculo);
     }
 
 }
