@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Calendar;
 
 /**
@@ -23,10 +24,10 @@ public class VeiculoDAO {
     private Connection con = null;
     private PreparedStatement stmt = null;
 
-    public int inserirVeiculo(Veiculo veiculo) {
+    public void inserirVeiculo(Veiculo veiculo) {
         try {
             con = new ConnectionFactory().getConnection();
-            stmt = con.prepareStatement(insertVeiculo);
+            stmt = con.prepareStatement(insertVeiculo, Statement.RETURN_GENERATED_KEYS);
             stmt.setDouble(1, calculaValorDeCompra(veiculo.getValorParaVenda(),veiculo.getAno()));
             stmt.setString(2, veiculo.getPlaca());
             stmt.setInt(3, veiculo.getAno());
@@ -36,8 +37,8 @@ public class VeiculoDAO {
             stmt.executeUpdate();
             final ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
-                final int enderecoID = rs.getInt(1);
-                return enderecoID;
+                final int veiculoID = rs.getInt(1);
+                veiculo.setId(veiculoID);
             }
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao inserir veículo: \n" + ex.getMessage());

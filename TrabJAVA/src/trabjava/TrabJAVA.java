@@ -83,10 +83,8 @@ public class TrabJAVA {
         int ano = scn.nextInt();
         
         Veiculo veiculo = new Motocicleta(ModeloMotocicleta.F, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.POPULAR);
-        VeiculoDAO v = new VeiculoDAO();
-        v.inserirVeiculo(veiculo);
-        MotocicletaDAO m = new MotocicletaDAO();
-        m.inserirMotocicleta(veiculo);
+        MotocicletaDAO motoDao = new MotocicletaDAO();
+        motoDao.inserirMotocicleta((Motocicleta)veiculo);
     }
 
 }

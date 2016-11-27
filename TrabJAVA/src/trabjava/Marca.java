@@ -10,12 +10,12 @@ package trabjava;
  * @author JotaWind
  */
 public enum Marca {
-    vw("Volkswagen"),
-    chevrolet("Chevrolet"),
-    fiat("fiat"),
-    honda("Honda"),
-    hyundai("Hyundai"),
-    renault("Renault");
+    vw("VOLKSWAGEN"),
+    chevrolet("CHEVROLET"),
+    fiat("FIAT"),
+    honda("HONDA"),
+    hyundai("HYUNDAI"),
+    renault("RENAULT");
 
     private final String name;
 

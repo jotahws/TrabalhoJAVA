@@ -20,6 +20,8 @@ public abstract class Veiculo implements VeiculoI {
     private Estado estado;
     private Categoria categoria;
     private Locacao locacao;
+    
+    private int id;
 
     public Veiculo(Double valorDeCompra, String placa, int ano, Marca marca, Estado estado, Categoria categoria) {
         this.valorDeCompra = valorDeCompra;
@@ -85,6 +87,14 @@ public abstract class Veiculo implements VeiculoI {
             return this.valorDeCompra * 0.1;
         }
         return valorVenda;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
