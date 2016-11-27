@@ -52,24 +52,32 @@ class EnderecoDAO {
             }
         }
     }
-    public Endereco buscaEndereco(int id){
+
+    public Endereco buscaEndereco(int id) {
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(selectEndereco);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 String rua = rs.getString("rua");
                 String cidade = rs.getString("cidade");
                 String bairro = rs.getString("bairro");
                 String numero = rs.getString("numero");
                 String complemento = rs.getString("complemento");
-                Endereco endereco = new Endereco(rua,cidade,bairro,numero,complemento);
+                Endereco endereco = new Endereco(rua, cidade, bairro, numero, complemento);
                 endereco.setId(id);
                 return endereco;
             }
         } catch (SQLException ex) {
             System.out.println("Erro");
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException ex) {
+                System.out.println("Erro ao fechar Statment ou fechar conexão");
+            }
         }
         return null;
     }

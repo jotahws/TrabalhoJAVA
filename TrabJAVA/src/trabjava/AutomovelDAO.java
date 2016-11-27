@@ -18,9 +18,11 @@ import java.sql.Statement;
  */
 public class AutomovelDAO {
 
-    private String insertAutomovel = "INSERT INTO automovel (veiculo, modelo) VALUES (?,?)";
+    private final String insertAutomovel = "INSERT INTO automovel (veiculo, modelo) VALUES (?,?)";
+    private final String selectAutomovelID = "SELECT * FROM AUTOMOVEL WHERE IDAUTOMOVEL=?";
     private Connection con = null;
     private PreparedStatement stmt = null;
+    private ResultSet rs = null;
 
     void inserirAutomovel(Automovel veiculo) {
         try {
@@ -48,5 +50,31 @@ public class AutomovelDAO {
         }
     }
 
-    
+    public void buscaAutomovel(int id) {
+        try {
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(selectAutomovelID);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                int veiculo = rs.getInt("veiculo");
+                String modelo = rs.getString("modelo");
+                VeiculoDAO veiculoDao = new VeiculoDAO();
+                veiculoDao.buscaVeiculo(id, modelo);
+//                Veiculo veiculo = new Automovel();
+//                endereco.setId(id);
+//                return endereco;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro");
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException ex) {
+                System.out.println("Erro ao fechar Statment ou fechar conexão");
+            }
+        }
+    }
+
 }

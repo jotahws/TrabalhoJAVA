@@ -53,14 +53,14 @@ public class ClienteDAO {
             }
         }
     }
-    
-    public Cliente buscaCliente(int id){
+
+    public Cliente buscaCliente(int id) {
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(selectCliente);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 String nome = rs.getString("nome");
                 String sobrenome = rs.getString("sobrenome");
                 String cpf = rs.getString("cpf");
@@ -74,6 +74,13 @@ public class ClienteDAO {
             }
         } catch (SQLException ex) {
             System.out.println("Erro: " + ex.getMessage());
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException ex) {
+                System.out.println("Erro ao fechar Statment ou fechar conexão");
+            }
         }
         return null;
     }

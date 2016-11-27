@@ -41,6 +41,7 @@ public class TrabJAVA {
                 inserirVeiculo();
                 break;
             case 6:
+                locarVeiculo();
                 break;
             case 7:
                 break;
@@ -75,6 +76,7 @@ public class TrabJAVA {
     }
 
     private static void inserirVeiculo() {
+        System.out.println("Inserir Automovel");
         Scanner scn = new Scanner(System.in);
         System.out.println("valor compra");
         double valorCompra = scn.nextDouble();
@@ -82,27 +84,30 @@ public class TrabJAVA {
         String placa = scn.next();
         System.out.println("ano");
         int ano = scn.nextInt();
-        
         Veiculo veiculo = new Automovel(ModeloAutomovel.celta, valorCompra, placa, ano, Marca.honda, Estado.DISPONIVEL, Categoria.popular);
         AutomovelDAO autoDao = new AutomovelDAO();
-        autoDao.inserirAutomovel((Automovel)veiculo);
+        autoDao.inserirAutomovel((Automovel) veiculo);
+
+        System.out.println("Inserir Van:");
+        scn = new Scanner(System.in);
+        System.out.println("valor compra");
+        valorCompra = scn.nextDouble();
+        System.out.println("placa");
+        placa = scn.next();
+        System.out.println("ano");
+        ano = scn.nextInt();
+        veiculo = new Van(ModeloVan.kombi, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.popular);
+        VanDAO vanDao = new VanDAO();
+        vanDao.inserirVan((Van)veiculo);
+    }
+
+    public static void locarVeiculo() {
+        Veiculo veiculo; //= new Automovel(ModeloAutomovel.gol, Double.NaN, placa, 0, Marca.honda, Estado.LOCADO, Categoria.popular);
         Calendar c = Calendar.getInstance();
         c.set(2016, 11, 27);
         ClienteDAO cDAO = new ClienteDAO();
-        Cliente cliente = cDAO.buscaCliente(3);
+        Cliente cliente = cDAO.buscaCliente(1);
         veiculo.locar(5, c, cliente);
-        
-//        scn = new Scanner(System.in);
-//        System.out.println("valor compra");
-//        valorCompra = scn.nextDouble();
-//        System.out.println("placa");
-//        placa = scn.next();
-//        System.out.println("ano");
-//        ano = scn.nextInt();
-//        
-//        veiculo = new Van(ModeloVan.kombi, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.popular);
-//        VanDAO vanDao = new VanDAO();
-//        vanDao.inserirVan((Van)veiculo);
     }
 
 }

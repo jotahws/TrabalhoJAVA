@@ -10,8 +10,19 @@ package trabjava;
  * @author JotaWind
  */
 public enum Estado {
-    NOVO, 
-    LOCADO, 
-    DISPONIVEL, 
-    VENDIDO;
+    NOVO("NOVO"),
+    LOCADO("LOCADO"),
+    DISPONIVEL("DISPONÍVEL"),
+    VENDIDO("VENDIDO");
+    
+    private final String name;
+
+    private Estado(String n) {
+        name = n;
+    }
+
+    public String toString() {
+        return this.name;
+    }
+;
 };
