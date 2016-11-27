@@ -26,8 +26,17 @@ public class Automovel extends Veiculo {
 
     @Override
     public double getValorDiariaLocacao(){
-       //retornar o valor da locação de acordo com a sua categoria
-       return 0.0;
+       String categoria = super.getCategoria().toString();
+       switch (categoria){
+           case "POPULAR":
+               return 100;
+           case "INTERMEDIARIO":
+               return 300;
+           case "LUXO":
+               return 450;
+           default:
+               return 0;
+       }
     }
     
     @Override

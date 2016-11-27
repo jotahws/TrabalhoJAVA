@@ -75,8 +75,17 @@ public class Van extends Veiculo {
     }
 
     @Override
-    public double getValorDiariaLocacao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public double getValorDiariaLocacao() {String categoria = super.getCategoria().toString();
+       switch (categoria){
+           case "POPULAR":
+               return 200;
+           case "INTERMEDIARIO":
+               return 400;
+           case "LUXO":
+               return 600;
+           default:
+               return 0;
+       }
     }
 
 }

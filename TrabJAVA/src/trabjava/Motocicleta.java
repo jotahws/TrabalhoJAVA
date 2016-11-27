@@ -25,8 +25,17 @@ public class Motocicleta extends Veiculo {
     }
 
     @Override
-    public double getValorDiariaLocacao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public double getValorDiariaLocacao() {String categoria = super.getCategoria().toString();
+       switch (categoria){
+           case "POPULAR":
+               return 70;
+           case "INTERMEDIARIO":
+               return 200;
+           case "LUXO":
+               return 350;
+           default:
+               return 0;
+       }
     }
 
 }

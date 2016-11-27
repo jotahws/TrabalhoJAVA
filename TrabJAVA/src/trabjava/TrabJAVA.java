@@ -86,7 +86,7 @@ public class TrabJAVA {
         System.out.println("ano");
         int ano = scn.nextInt();
         
-        Veiculo veiculo = new Automovel(ModeloAutomovel.celta, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.POPULAR);
+        Veiculo veiculo = new Automovel(ModeloAutomovel.celta, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.popular);
         AutomovelDAO autoDao = new AutomovelDAO();
         autoDao.inserirAutomovel((Automovel)veiculo);
         
@@ -98,7 +98,7 @@ public class TrabJAVA {
         System.out.println("ano");
         ano = scn.nextInt();
         
-        veiculo = new Van(ModeloVan.kombi, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.POPULAR);
+        veiculo = new Van(ModeloVan.kombi, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.popular);
         VanDAO vanDao = new VanDAO();
         vanDao.inserirVan((Van)veiculo);
     }

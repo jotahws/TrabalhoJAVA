@@ -10,6 +10,18 @@ package trabjava;
  * @author JotaWind
  */
 public enum Categoria {
-    POPULAR, INTERMEDIARIO, LUXO;
-};
+    popular("POPULAR"),
+    intermediario("INTERMEDIARIO"),
+    luxo("LUXO");
+  
+    private final String name;
+    
+    private Categoria(String n){
+        name = n;
+    }
+    
+    public String toString() {
+        return this.name;
+    };
+}
 
