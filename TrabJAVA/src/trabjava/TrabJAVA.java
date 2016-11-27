@@ -37,7 +37,11 @@ public class TrabJAVA {
                 inserirCliente();
                 break;
             case 5:
+                try{
                 inserirVeiculo();
+                } catch(NullPointerException ex){
+                    System.out.println(ex.getMessage());
+                }
                 break;
             case 6:
                 break;
@@ -82,9 +86,21 @@ public class TrabJAVA {
         System.out.println("ano");
         int ano = scn.nextInt();
         
-        Veiculo veiculo = new Motocicleta(ModeloMotocicleta.F, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.POPULAR);
-        MotocicletaDAO motoDao = new MotocicletaDAO();
-        motoDao.inserirMotocicleta((Motocicleta)veiculo);
+        Veiculo veiculo = new Automovel(ModeloAutomovel.celta, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.POPULAR);
+        AutomovelDAO autoDao = new AutomovelDAO();
+        autoDao.inserirAutomovel((Automovel)veiculo);
+        
+        scn = new Scanner(System.in);
+        System.out.println("valor compra");
+        valorCompra = scn.nextDouble();
+        System.out.println("placa");
+        placa = scn.next();
+        System.out.println("ano");
+        ano = scn.nextInt();
+        
+        veiculo = new Van(ModeloVan.kombi, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.POPULAR);
+        VanDAO vanDao = new VanDAO();
+        vanDao.inserirVan((Van)veiculo);
     }
 
 }
