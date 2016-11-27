@@ -24,6 +24,10 @@ public class Locacao {
         this.data = data;
         this.cliente = cliente;
     }
+    
+    public int getDias(){
+        return dias;
+    }
 
     public double getValor() {
         return valor;

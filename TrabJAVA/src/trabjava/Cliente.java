@@ -11,6 +11,7 @@ package trabjava;
  */
 public class Cliente {
 
+    private int id;
     private String nome;
     private String sobrenome;
     private String rg;
@@ -23,6 +24,14 @@ public class Cliente {
         this.rg = rg;
         this.cpf = cpf;
         this.endereco = endereco;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNome() {

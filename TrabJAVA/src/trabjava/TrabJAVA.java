@@ -5,6 +5,7 @@
  */
 package trabjava;
 
+import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -37,11 +38,7 @@ public class TrabJAVA {
                 inserirCliente();
                 break;
             case 5:
-                try{
                 inserirVeiculo();
-                } catch(NullPointerException ex){
-                    System.out.println(ex.getMessage());
-                }
                 break;
             case 6:
                 break;
@@ -86,21 +83,26 @@ public class TrabJAVA {
         System.out.println("ano");
         int ano = scn.nextInt();
         
-        Veiculo veiculo = new Automovel(ModeloAutomovel.celta, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.popular);
+        Veiculo veiculo = new Automovel(ModeloAutomovel.celta, valorCompra, placa, ano, Marca.honda, Estado.DISPONIVEL, Categoria.popular);
         AutomovelDAO autoDao = new AutomovelDAO();
         autoDao.inserirAutomovel((Automovel)veiculo);
+        Calendar c = Calendar.getInstance();
+        c.set(2016, 11, 27);
+        ClienteDAO cDAO = new ClienteDAO();
+        Cliente cliente = cDAO.buscaCliente(3);
+        veiculo.locar(5, c, cliente);
         
-        scn = new Scanner(System.in);
-        System.out.println("valor compra");
-        valorCompra = scn.nextDouble();
-        System.out.println("placa");
-        placa = scn.next();
-        System.out.println("ano");
-        ano = scn.nextInt();
-        
-        veiculo = new Van(ModeloVan.kombi, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.popular);
-        VanDAO vanDao = new VanDAO();
-        vanDao.inserirVan((Van)veiculo);
+//        scn = new Scanner(System.in);
+//        System.out.println("valor compra");
+//        valorCompra = scn.nextDouble();
+//        System.out.println("placa");
+//        placa = scn.next();
+//        System.out.println("ano");
+//        ano = scn.nextInt();
+//        
+//        veiculo = new Van(ModeloVan.kombi, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.popular);
+//        VanDAO vanDao = new VanDAO();
+//        vanDao.inserirVan((Van)veiculo);
     }
 
 }

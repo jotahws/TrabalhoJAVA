@@ -35,7 +35,12 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public void locar(int dias, Calendar data, Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double valor = this.getValorDiariaLocacao();
+        Locacao locacao = new Locacao(dias, valor, data, cliente);
+        this.locacao=locacao;
+        LocacaoDAO locacaoDAO = new LocacaoDAO();
+        locacaoDAO.inserirLocacao(locacao, this);
+        this.estado=Estado.LOCADO;
     }
 
     @Override
