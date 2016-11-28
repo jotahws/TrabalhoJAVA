@@ -60,7 +60,6 @@ public class AutomovelDAO {
                 int veiculo = rs.getInt("veiculo");
                 String modelo = rs.getString("modelo");
                 VeiculoDAO veiculoDao = new VeiculoDAO();
-                veiculoDao.buscaVeiculo(id, modelo);
 //                Veiculo veiculo = new Automovel();
 //                endereco.setId(id);
 //                return endereco;

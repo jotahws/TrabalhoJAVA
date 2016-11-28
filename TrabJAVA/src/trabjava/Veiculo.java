@@ -20,7 +20,6 @@ public abstract class Veiculo implements VeiculoI {
     private Estado estado;
     private Categoria categoria;
     private Locacao locacao;
-    
     private int id;
 
     public Veiculo(Double valorDeCompra, String placa, int ano, Marca marca, Estado estado, Categoria categoria) {
@@ -41,6 +40,8 @@ public abstract class Veiculo implements VeiculoI {
         LocacaoDAO locacaoDAO = new LocacaoDAO();
         locacaoDAO.inserirLocacao(locacao, this);
         this.estado=Estado.LOCADO;
+        VeiculoDAO veiculoDAO = new VeiculoDAO();
+        veiculoDAO.atualizaEstado("LOCADO", this.id);
     }
 
     @Override

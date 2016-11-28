@@ -107,7 +107,6 @@ public class TrabJAVA {
         c.set(2016, 11, 27);
         ClienteDAO cDAO = new ClienteDAO();
         Cliente cliente = cDAO.buscaCliente(1);
-        veiculo.locar(5, c, cliente);
     }
 
 }

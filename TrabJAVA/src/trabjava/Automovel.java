@@ -14,14 +14,29 @@ import java.util.Calendar;
 public class Automovel extends Veiculo {
 
     private ModeloAutomovel modelo;
+    private int idAutomovel;
 
     public Automovel(ModeloAutomovel modelo, Double valorDeCompra, String placa, int ano, Marca marca, Estado estado, Categoria categoria) {
         super(valorDeCompra, placa, ano, marca, estado, categoria);
         this.modelo = modelo;
     }
+    
+    public Automovel(int idAutomovel, ModeloAutomovel modelo, Double valorDeCompra, String placa, int ano, Marca marca, Estado estado, Categoria categoria) {
+        super(valorDeCompra, placa, ano, marca, estado, categoria);
+        this.modelo = modelo;
+        this.idAutomovel=idAutomovel;
+    }
 
     public ModeloAutomovel getModelo() {
         return modelo;
+    }
+
+    public void setIdAutomovel(int idAutomovel) {
+        this.idAutomovel = idAutomovel;
+    }
+
+    public int getIdAutomovel() {
+        return idAutomovel;
     }
 
     @Override
