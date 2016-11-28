@@ -24,14 +24,14 @@ import java.util.logging.Logger;
 public class VeiculoDAO {
 
     private final String insertVeiculo = "INSERT INTO VEICULO (valor_compra, placa, ano, "
-            + "marca, estado, categoria) VALUES (?,?,?,?,?,?)";
-    private final String selectVeiculoID = "SELECT * FROM VEICULO WHERE IDVEICULO=?";
-    private final String selectDisponivel = "SELECT * FROM veiculo, ? WHERE veiculo.idveiculo=?.veiculo"
-            + "and veiculo.estado = 'DISPONIVEL'";
-    private final String selectPorMarca = "SELECT * FROM veiculo, ? WHERE veiculo.idveiculo=?.veiculo"
-            + "and veiculo.marca=? ";
-    private final String selectPorCategoria = "SELECT * FROM veiculo, ? WHERE veiculo.idveiculo=?.veiculo "
-            + "and veiculo.categoria=? ";
+            + " marca, estado, categoria) VALUES (?,?,?,?,?,?)";
+    private final String whereDisponivel = " B WHERE V.idveiculo=B.veiculo"
+            + " and v.estado = 'DISPONIVEL' ";
+    private final String wherePorMarca = " B WHERE V.idveiculo=B.veiculo"
+            + " and v.marca=? ";
+    private final String wherePorCategoria = " B WHERE V.idveiculo=B.veiculo "
+            + " and v.categoria=? ";
+    private final String selectGenerico = "SELECT * FROM veiculo V, ";
     private final String updateEstado = "UPDATE veiculo SET estado=? WHERE idveiculo=?";
     private Connection con = null;
     private PreparedStatement stmt = null;
@@ -76,43 +76,32 @@ public class VeiculoDAO {
         return valorCompra;
     }
 
-    public List<Veiculo> listaVeiculosDisponiveis(String tipoB, String marcaB, String categoriaB) {
+    public List<Veiculo> listaVeiculosDisponiveis(String tipoB, String marcaB, String categoriaB, int opt) {
         try {
             con = new ConnectionFactory().getConnection();
-            int opt = 0;
             String sql;
             switch(opt){
                 case 1:
-                    sql = selectDisponivel + " INTERSECT " + selectPorMarca + " INTERSECT " + selectPorCategoria;
+                    sql = selectGenerico + tipoB + whereDisponivel +  " INTERSECT " +selectGenerico+tipoB+ wherePorMarca + " INTERSECT " +selectGenerico+tipoB+ wherePorCategoria;
                     stmt = con.prepareStatement(sql);
-                    stmt.setString(3, tipoB);
-                    stmt.setString(4, tipoB);
-                    stmt.setString(5, marcaB);
-                    stmt.setString(6, tipoB);
-                    stmt.setString(7, tipoB);
-                    stmt.setString(8, categoriaB);
+                    stmt.setString(1, marcaB);
+                    stmt.setString(2, categoriaB);
                 break;
                 case 2:
-                    sql = selectDisponivel + " INTERSECT " + selectPorMarca;
+                    sql =selectGenerico+tipoB+ whereDisponivel + " INTERSECT " +selectGenerico+tipoB+ wherePorMarca;
                     stmt = con.prepareStatement(sql);
-                    stmt.setString(3, tipoB);
-                    stmt.setString(4, tipoB);
-                    stmt.setString(5, marcaB);
+                    stmt.setString(1, marcaB);
                 break;
                 case 3:
-                    sql = selectDisponivel + " INTERSECT " + selectPorCategoria;
+                    sql =selectGenerico+tipoB+ whereDisponivel + " INTERSECT " +selectGenerico+tipoB+ wherePorCategoria;
                     stmt = con.prepareStatement(sql);
-                    stmt.setString(3, tipoB);
-                    stmt.setString(4, tipoB);
-                    stmt.setString(5, categoriaB);
+                    stmt.setString(1, categoriaB);
                 break;
                 case 4:
-                    sql = selectDisponivel;
+                    sql = whereDisponivel;
                     stmt = con.prepareStatement(sql);
                 break;
             }
-            stmt.setString(1, tipoB);
-            stmt.setString(2, tipoB);
             rs = stmt.executeQuery();
             List<Veiculo> lista = new ArrayList();
             while(rs.next()){

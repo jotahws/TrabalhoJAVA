@@ -5,7 +5,9 @@
  */
 package trabjava;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -24,7 +26,8 @@ public class TrabJAVA {
                 + "4-incluir cliente\n"
                 + "5-incluir veículo\n"
                 + "6-Locar veiculo\n"
-                + "7-devolver veiculo\n");
+                + "7-devolver veiculo\n"
+                + "8-Listar Veiculos\n");
         Scanner scn = new Scanner(System.in);
         int opc = scn.nextInt();
         switch (opc) {
@@ -44,6 +47,9 @@ public class TrabJAVA {
                 locarVeiculo();
                 break;
             case 7:
+                break;
+            case 8:
+                ListarVeiculos();
                 break;
         }
     }
@@ -84,10 +90,10 @@ public class TrabJAVA {
         String placa = scn.next();
         System.out.println("ano");
         int ano = scn.nextInt();
-        Veiculo veiculo = new Automovel(ModeloAutomovel.celta, valorCompra, placa, ano, Marca.honda, Estado.DISPONIVEL, Categoria.popular);
+        Veiculo veiculo = new Automovel(ModeloAutomovel.AMG, valorCompra, placa, ano, Marca.hyundai, Estado.DISPONIVEL, Categoria.luxo);
         AutomovelDAO autoDao = new AutomovelDAO();
         autoDao.inserirAutomovel((Automovel) veiculo);
-
+        
         System.out.println("Inserir Van:");
         scn = new Scanner(System.in);
         System.out.println("valor compra");
@@ -96,9 +102,9 @@ public class TrabJAVA {
         placa = scn.next();
         System.out.println("ano");
         ano = scn.nextInt();
-        veiculo = new Van(ModeloVan.kombi, valorCompra, placa, ano, Marca.honda, Estado.LOCADO, Categoria.popular);
+        veiculo = new Van(ModeloVan.ducato, valorCompra, placa, ano, Marca.fiat, Estado.DISPONIVEL, Categoria.intermediario);
         VanDAO vanDao = new VanDAO();
-        vanDao.inserirVan((Van)veiculo);
+        vanDao.inserirVan((Van) veiculo);
     }
 
     public static void locarVeiculo() {
@@ -107,6 +113,15 @@ public class TrabJAVA {
         c.set(2016, 11, 27);
         ClienteDAO cDAO = new ClienteDAO();
         Cliente cliente = cDAO.buscaCliente(1);
+    }
+
+    public static void ListarVeiculos() {
+        VeiculoDAO veiculoDao = new VeiculoDAO();
+        List<Veiculo> lista = new ArrayList();
+        lista = veiculoDao.listaVeiculosDisponiveis("automovel", Marca.honda.toString(), Categoria.popular.toString(), 1);
+        for (Veiculo veiculo : lista) {
+            System.out.println("Veiculo= " + veiculo.getPlaca() + veiculo.getMarca().toString() );
+        }
     }
 
 }
