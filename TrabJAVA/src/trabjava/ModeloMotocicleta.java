@@ -11,10 +11,10 @@ package trabjava;
  */
 public enum ModeloMotocicleta {
     
-    F("F 800"),
-    CG("CG 150"),
-    CBR("CBR 500"),
-    BIZ("Biz");
+    F800("F800"),
+    CG150("CG150"),
+    CBR500("CBR500"),
+    Biz("Biz");
     
     private final String name;
 

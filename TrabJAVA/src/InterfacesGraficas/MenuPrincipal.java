@@ -29,15 +29,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        novoVeiculo1 = new InterfacesGraficas.NovoVeiculo();
         jPanel1 = new javax.swing.JPanel();
         topo = new javax.swing.JPanel();
         baixo = new javax.swing.JPanel();
         esquerda = new javax.swing.JPanel();
         btnNovoCliente = new javax.swing.JButton();
+        btnNovoVeiculo = new javax.swing.JButton();
         centro = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         novoCliente1 = new InterfacesGraficas.NovoCliente();
+        novoVeiculo2 = new InterfacesGraficas.NovoVeiculo();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuNovo = new javax.swing.JMenu();
         MenuNovoCliente = new javax.swing.JMenuItem();
@@ -56,7 +59,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         topo.setLayout(topoLayout);
         topoLayout.setHorizontalGroup(
             topoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 727, Short.MAX_VALUE)
         );
         topoLayout.setVerticalGroup(
             topoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,7 +72,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         baixo.setLayout(baixoLayout);
         baixoLayout.setHorizontalGroup(
             baixoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 727, Short.MAX_VALUE)
         );
         baixoLayout.setVerticalGroup(
             baixoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,6 +89,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnNovoVeiculo.setText("Novo Veículo");
+        btnNovoVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoVeiculoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout esquerdaLayout = new javax.swing.GroupLayout(esquerda);
         esquerda.setLayout(esquerdaLayout);
         esquerdaLayout.setHorizontalGroup(
@@ -94,13 +104,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, esquerdaLayout.createSequentialGroup()
+                .addComponent(btnNovoVeiculo)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         esquerdaLayout.setVerticalGroup(
             esquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(esquerdaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnNovoCliente)
-                .addContainerGap(297, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnNovoVeiculo)
+                .addContainerGap(262, Short.MAX_VALUE))
         );
 
         jPanel1.add(esquerda, java.awt.BorderLayout.LINE_START);
@@ -130,6 +145,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         centro.add(jPanel3, "card3");
         centro.add(novoCliente1, "novoCliente");
+        centro.add(novoVeiculo2, "novoVeiculo");
 
         jPanel1.add(centro, java.awt.BorderLayout.CENTER);
 
@@ -185,6 +201,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         card.show(centro, "novoCliente");
     }//GEN-LAST:event_btnNovoClienteActionPerformed
 
+    private void btnNovoVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoVeiculoActionPerformed
+        CardLayout card = (CardLayout) centro.getLayout();
+        card.show(centro, "novoVeiculo");
+    }//GEN-LAST:event_btnNovoVeiculoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -228,6 +249,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuNovoVeiculo;
     private javax.swing.JPanel baixo;
     private javax.swing.JButton btnNovoCliente;
+    private javax.swing.JButton btnNovoVeiculo;
     private javax.swing.JPanel centro;
     private javax.swing.JPanel esquerda;
     private javax.swing.JLabel jLabel1;
@@ -235,6 +257,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private InterfacesGraficas.NovoCliente novoCliente1;
+    private InterfacesGraficas.NovoVeiculo novoVeiculo1;
+    private InterfacesGraficas.NovoVeiculo novoVeiculo2;
     private javax.swing.JPanel topo;
     // End of variables declaration//GEN-END:variables
 }

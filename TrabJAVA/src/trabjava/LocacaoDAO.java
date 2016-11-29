@@ -46,36 +46,47 @@ public class LocacaoDAO {
                 locacao.setId(locacaoID);
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao inserir veículo: \n" + ex.getMessage());
+            throw new RuntimeException("Erro ao criar locação: \n" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar Statment ou fechar conexão");
+                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
             }
         }
     }
-    
-    public List<Locacao> listaLocacao(){
+
+    public List<Locacao> listaLocacao() {
         try {
             List<Locacao> lista = new ArrayList();
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(selectLocacao);
             rs = stmt.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int locacaoID = rs.getInt("idlocacao");
                 int dias = rs.getInt("dias");
                 double valor = rs.getDouble("valor");
                 Calendar data = Calendar.getInstance();
                 data.setTime(rs.getDate("data"));
-                
+                int idCliente = rs.getInt("cliente");
+                ClienteDAO clienteDao = new ClienteDAO();
+                Cliente cliente = clienteDao.buscaCliente(idCliente);
+                Locacao locacao = new Locacao(dias, valor, data, cliente);
+                locacao.setId(locacaoID);
+                lista.add(locacao);
             }
             return lista;
         } catch (SQLException ex) {
-            Logger.getLogger(LocacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Erro ao listar locações: \n" + ex.getMessage());
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException ex) {
+                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
+            }
         }
-        return null;
     }
-    
+
 }

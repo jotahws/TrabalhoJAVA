@@ -42,13 +42,13 @@ class EnderecoDAO {
                 endereco.setId(enderecoID);
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao criar endereco: \n" + ex.getMessage());
+            throw new RuntimeException("Erro ao criar endereço: \n" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar Statment ou fechar conexão");
+                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
             }
         }
     }
@@ -70,13 +70,13 @@ class EnderecoDAO {
                 return endereco;
             }
         } catch (SQLException ex) {
-            System.out.println("Erro");
+            throw new RuntimeException("Erro ao buscar endereço: \n" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar Statment ou fechar conexão");
+                throw new RuntimeException("Erro ao fechar Statmento ou Conexão: \n" + ex.getMessage());
             }
         }
         return null;

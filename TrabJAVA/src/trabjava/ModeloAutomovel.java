@@ -20,7 +20,7 @@ public enum ModeloAutomovel {
     Up("Up"),
     Onix("Onix"),
     Hb("HB20"),
-    AMG("AMG-GT");
+    AMGGT("AMGGT");
     
     private final String name;
 

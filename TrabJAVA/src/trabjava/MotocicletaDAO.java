@@ -37,13 +37,13 @@ public class MotocicletaDAO {
 //                veiculo.setId(enderecoID);
 //            }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao inserir veículo: \n" + ex.getMessage());
+            throw new RuntimeException("Erro ao inserir Motocicleta: \n" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar Statment ou fechar conexão");
+                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
             }
         }
     }

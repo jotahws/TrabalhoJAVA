@@ -54,13 +54,13 @@ public class VeiculoDAO {
                 veiculo.setId(veiculoID);
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao inserir veículo: \n" + ex.getMessage());
+            throw new RuntimeException("Erro ao inserir Veículo: \n" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar Statment ou fechar conexão");
+                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
             }
         }
     }
@@ -80,31 +80,31 @@ public class VeiculoDAO {
         try {
             con = new ConnectionFactory().getConnection();
             String sql;
-            switch(opt){
+            switch (opt) {
                 case 1:
-                    sql = selectGenerico+tipoB+whereDisponivel+  " AND EXISTS (" +selectGenerico+tipoB+wherePorMarca+ ") AND EXISTS (" +selectGenerico+tipoB+wherePorCategoria+ ")";
+                    sql = selectGenerico + tipoB + whereDisponivel + " AND EXISTS (" + selectGenerico + tipoB + wherePorMarca + ") AND EXISTS (" + selectGenerico + tipoB + wherePorCategoria + ")";
                     stmt = con.prepareStatement(sql);
                     stmt.setString(1, marcaB);
                     stmt.setString(2, categoriaB);
-                break;
+                    break;
                 case 2:
-                    sql =selectGenerico+tipoB+whereDisponivel+ " AND EXISTS (" +selectGenerico+tipoB+wherePorMarca +")";
+                    sql = selectGenerico + tipoB + whereDisponivel + " AND EXISTS (" + selectGenerico + tipoB + wherePorMarca + ")";
                     stmt = con.prepareStatement(sql);
                     stmt.setString(1, marcaB);
-                break;
+                    break;
                 case 3:
-                    sql =selectGenerico+tipoB+whereDisponivel+ " AND EXISTS (" +selectGenerico+tipoB+wherePorCategoria +")";
+                    sql = selectGenerico + tipoB + whereDisponivel + " AND EXISTS (" + selectGenerico + tipoB + wherePorCategoria + ")";
                     stmt = con.prepareStatement(sql);
                     stmt.setString(1, categoriaB);
-                break;
+                    break;
                 case 4:
                     sql = whereDisponivel;
                     stmt = con.prepareStatement(sql);
-                break;
+                    break;
             }
             rs = stmt.executeQuery();
             List<Veiculo> lista = new ArrayList();
-            while(rs.next()){
+            while (rs.next()) {
                 int idVeiculo = rs.getInt("idveiculo");
                 double valorCompra = rs.getDouble("valor_compra");
                 String placa = rs.getString("placa");
@@ -114,38 +114,38 @@ public class VeiculoDAO {
                 String categoriaV = rs.getString("categoria");
                 int idFilho = rs.getInt(8);
                 String modelo = rs.getString("modelo");
-                switch(tipoB){
+                switch (tipoB) {
                     case "automovel":
-                        Veiculo auto = new Automovel(idFilho,ModeloAutomovel.valueOf(modelo),valorCompra,placa,ano,Marca.valueOf(marcaV),Estado.valueOf(estado),Categoria.valueOf(categoriaV));
+                        Veiculo auto = new Automovel(idFilho, ModeloAutomovel.valueOf(modelo), valorCompra, placa, ano, Marca.valueOf(marcaV), Estado.valueOf(estado), Categoria.valueOf(categoriaV));
                         auto.setId(idVeiculo);
                         lista.add(auto);
-                    break;
+                        break;
                     case "motocicleta":
-                        Veiculo moto = new Motocicleta(idFilho,ModeloMotocicleta.valueOf(modelo),valorCompra,placa,ano,Marca.valueOf(marcaV),Estado.valueOf(estado),Categoria.valueOf(categoriaV));
+                        Veiculo moto = new Motocicleta(idFilho, ModeloMotocicleta.valueOf(modelo), valorCompra, placa, ano, Marca.valueOf(marcaV), Estado.valueOf(estado), Categoria.valueOf(categoriaV));
                         moto.setId(idVeiculo);
                         lista.add(moto);
-                    break;
+                        break;
                     case "van":
-                        Veiculo van = new Van(idFilho,ModeloVan.valueOf(modelo),valorCompra,placa,ano,Marca.valueOf(marcaV),Estado.valueOf(estado),Categoria.valueOf(categoriaV));
+                        Veiculo van = new Van(idFilho, ModeloVan.valueOf(modelo), valorCompra, placa, ano, Marca.valueOf(marcaV), Estado.valueOf(estado), Categoria.valueOf(categoriaV));
                         van.setId(idVeiculo);
                         lista.add(van);
-                    break;
+                        break;
                 }
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro no banco de dados" + ex.getMessage());
+            throw new RuntimeException("Erro ao lista veículos Disponíveis \n" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                throw new RuntimeException("erro ao fechar Statment ou fechar conexão");
+                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
             }
         }
     }
-    
-    public void atualizaEstado(String Estado, int id){
+
+    public void atualizaEstado(String Estado, int id) {
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(updateEstado);
@@ -153,13 +153,13 @@ public class VeiculoDAO {
             stmt.setInt(2, id);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Errou! " + ex.getMessage());
-        } finally{
+            throw new RuntimeException("Erro ao atualizar estado do Veículo \n" + ex.getMessage());
+        } finally {
             try {
                 con.close();
                 stmt.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar parametros: " + ex.getMessage());
+                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
             }
         }
     }

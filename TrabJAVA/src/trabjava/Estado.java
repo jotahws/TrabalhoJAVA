@@ -12,7 +12,7 @@ package trabjava;
 public enum Estado {
     NOVO("NOVO"),
     LOCADO("LOCADO"),
-    DISPONIVEL("DISPONÍVEL"),
+    DISPONIVEL("DISPONIVEL"),
     VENDIDO("VENDIDO");
     
     private final String name;

@@ -30,9 +30,9 @@ public class ConnectionFactory {
             Connection con = DriverManager.getConnection(url, usuario, senha);
             return con;
         } catch (IOException ex) {
-            throw new RuntimeException("Problemas no arquivo .properties: " + ex.getMessage());
+            throw new RuntimeException("Problemas no arquivo .properties: \n" + ex.getMessage());
         } catch (SQLException ex){
-            throw new RuntimeException("Problemas no BD: " + ex.getMessage());
+            throw new RuntimeException("Problemas no Banco de Dados: \n" + ex.getMessage());
         }
     }
 }

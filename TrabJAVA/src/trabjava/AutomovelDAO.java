@@ -39,13 +39,13 @@ public class AutomovelDAO {
 //                veiculo.setId(enderecoID);
 //            }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao inserir veículo: \n" + ex.getMessage());
+            throw new RuntimeException("Erro ao inserir Automóvel: \n" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar Statment ou fechar conexão");
+                throw new RuntimeException("Erro ao fechar Statment ou fechar conexão");
             }
         }
     }
@@ -65,13 +65,13 @@ public class AutomovelDAO {
 //                return endereco;
             }
         } catch (SQLException ex) {
-            System.out.println("Erro");
+            throw new RuntimeException("Erro ao buscar um Automóvel: \n" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar Statment ou fechar conexão");
+                throw new RuntimeException("Erro ao fechar Statment ou fechar conexão\n " + ex.getMessage());
             }
         }
     }

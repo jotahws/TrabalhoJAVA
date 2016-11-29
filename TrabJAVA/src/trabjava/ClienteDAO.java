@@ -49,7 +49,7 @@ public class ClienteDAO {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar Statment ou fechar conexão");
+                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
             }
         }
     }
@@ -73,13 +73,13 @@ public class ClienteDAO {
                 return cliente;
             }
         } catch (SQLException ex) {
-            System.out.println("Erro: " + ex.getMessage());
+            throw new RuntimeException("Erro ao buscar um cliente: \n" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar Statment ou fechar conexão");
+                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
             }
         }
         return null;
