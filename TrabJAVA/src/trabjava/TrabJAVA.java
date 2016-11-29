@@ -82,7 +82,7 @@ public class TrabJAVA {
     }
 
     private static void inserirVeiculo() {
-        System.out.println("Inserir Automovel");
+        System.out.println("Inserir Automovel:");
         Scanner scn = new Scanner(System.in);
         System.out.println("valor compra");
         double valorCompra = scn.nextDouble();
@@ -108,16 +108,8 @@ public class TrabJAVA {
     }
 
     public static void locarVeiculo() {
-        Veiculo veiculo; //= new Automovel(ModeloAutomovel.gol, Double.NaN, placa, 0, Marca.honda, Estado.LOCADO, Categoria.popular);
-        Calendar c = Calendar.getInstance();
-        c.set(2016, 11, 27);
-        ClienteDAO cDAO = new ClienteDAO();
-        Cliente cliente = cDAO.buscaCliente(1);
-    }
-
-    public static void ListarVeiculos() {
         VeiculoDAO veiculoDao = new VeiculoDAO();
-        List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("automovel", Marca.HONDA.toString(), Categoria.POPULAR.toString(), 1);
+        List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("van", Marca.HONDA.toString(), Categoria.POPULAR.toString(), 3);
         for (Veiculo veiculo : lista) {
             int index = lista.indexOf(veiculo)+1;
             System.out.println("Veiculo " +index+ " = " + veiculo.getPlaca() + " " + veiculo.getMarca().toString() );
@@ -133,6 +125,9 @@ public class TrabJAVA {
         ClienteDAO cDAO = new ClienteDAO();
         Cliente cliente = cDAO.buscaCliente(3);
         veiculoLocar.locar(dias, data, cliente);
+    }
+
+    public static void ListarVeiculos() {
     }
 
 }

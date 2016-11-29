@@ -12,7 +12,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,10 +25,12 @@ import java.util.Calendar;
 public class LocacaoDAO {
 
     private String insertLocacao = "INSERT INTO locacao (dias, valor, data, cliente, veiculo) VALUES (?,?,?,?,?)";
+    private String selectLocacao = "SELECT * FROM locacao";
     private Connection con = null;
     private PreparedStatement stmt = null;
+    private ResultSet rs = null;
 
-    void inserirLocacao(Locacao locacao, Veiculo veiculo) {
+    public void inserirLocacao(Locacao locacao, Veiculo veiculo) {
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(insertLocacao, Statement.RETURN_GENERATED_KEYS);
@@ -35,10 +41,10 @@ public class LocacaoDAO {
             stmt.setInt(5, veiculo.getId());
             stmt.executeUpdate();
             final ResultSet rs = stmt.getGeneratedKeys();
-//            if (rs.next()) {
-//                final int enderecoID = rs.getInt(1);
-//                veiculo.setId(enderecoID);
-//            }
+            if (rs.next()) {
+                final int locacaoID = rs.getInt(1);
+                locacao.setId(locacaoID);
+            }
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao inserir veículo: \n" + ex.getMessage());
         } finally {
@@ -49,6 +55,27 @@ public class LocacaoDAO {
                 System.out.println("Erro ao fechar Statment ou fechar conexão");
             }
         }
+    }
+    
+    public List<Locacao> listaLocacao(){
+        try {
+            List<Locacao> lista = new ArrayList();
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(selectLocacao);
+            rs = stmt.executeQuery();
+            while (rs.next()){
+                int locacaoID = rs.getInt("idlocacao");
+                int dias = rs.getInt("dias");
+                double valor = rs.getDouble("valor");
+                Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("data"));
+                
+            }
+            return lista;
+        } catch (SQLException ex) {
+            Logger.getLogger(LocacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
 }

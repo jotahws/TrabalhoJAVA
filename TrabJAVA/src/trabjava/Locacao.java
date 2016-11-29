@@ -13,6 +13,7 @@ import java.util.Calendar;
  */
 public class Locacao {
 
+    private int id;
     private int dias;
     private double valor;
     private Calendar data;
@@ -24,6 +25,15 @@ public class Locacao {
         this.data = data;
         this.cliente = cliente;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     
     public int getDias(){
         return dias;
