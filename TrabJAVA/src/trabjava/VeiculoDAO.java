@@ -82,18 +82,18 @@ public class VeiculoDAO {
             String sql;
             switch(opt){
                 case 1:
-                    sql = selectGenerico + tipoB + whereDisponivel +  " INTERSECT " +selectGenerico+tipoB+ wherePorMarca + " INTERSECT " +selectGenerico+tipoB+ wherePorCategoria;
+                    sql = selectGenerico+tipoB+whereDisponivel+  " AND EXISTS (" +selectGenerico+tipoB+wherePorMarca+ ") AND EXISTS (" +selectGenerico+tipoB+wherePorCategoria+ ")";
                     stmt = con.prepareStatement(sql);
                     stmt.setString(1, marcaB);
                     stmt.setString(2, categoriaB);
                 break;
                 case 2:
-                    sql =selectGenerico+tipoB+ whereDisponivel + " INTERSECT " +selectGenerico+tipoB+ wherePorMarca;
+                    sql =selectGenerico+tipoB+whereDisponivel+ " AND EXISTS (" +selectGenerico+tipoB+wherePorMarca +")";
                     stmt = con.prepareStatement(sql);
                     stmt.setString(1, marcaB);
                 break;
                 case 3:
-                    sql =selectGenerico+tipoB+ whereDisponivel + " INTERSECT " +selectGenerico+tipoB+ wherePorCategoria;
+                    sql =selectGenerico+tipoB+whereDisponivel+ " AND EXISTS (" +selectGenerico+tipoB+wherePorCategoria +")";
                     stmt = con.prepareStatement(sql);
                     stmt.setString(1, categoriaB);
                 break;
@@ -115,17 +115,17 @@ public class VeiculoDAO {
                 int idFilho = rs.getInt(8);
                 String modelo = rs.getString("modelo");
                 switch(tipoB){
-                    case "Automovel":
+                    case "automovel":
                         Veiculo auto = new Automovel(idFilho,ModeloAutomovel.valueOf(modelo),valorCompra,placa,ano,Marca.valueOf(marcaV),Estado.valueOf(estado),Categoria.valueOf(categoriaV));
                         auto.setId(idVeiculo);
                         lista.add(auto);
                     break;
-                    case "Motocicleta":
+                    case "motocicleta":
                         Veiculo moto = new Motocicleta(idFilho,ModeloMotocicleta.valueOf(modelo),valorCompra,placa,ano,Marca.valueOf(marcaV),Estado.valueOf(estado),Categoria.valueOf(categoriaV));
                         moto.setId(idVeiculo);
                         lista.add(moto);
                     break;
-                    case "Van":
+                    case "van":
                         Veiculo van = new Van(idFilho,ModeloVan.valueOf(modelo),valorCompra,placa,ano,Marca.valueOf(marcaV),Estado.valueOf(estado),Categoria.valueOf(categoriaV));
                         van.setId(idVeiculo);
                         lista.add(van);

@@ -11,10 +11,10 @@ package trabjava;
  */
 public enum ModeloVan {
 
-    kombi("Kombi"),
-    sprinter("Sprinter"),
-    transit("Transit"),
-    ducato("Ducato");
+    KOMBI("Kombi"),
+    SPRINTER("Sprinter"),
+    TRANSIT("Transit"),
+    DUCATO("Ducato");
     
     private final String name;
 

@@ -10,9 +10,9 @@ package trabjava;
  * @author JotaWind
  */
 public enum Categoria {
-    popular("POPULAR"),
-    intermediario("INTERMEDIARIO"),
-    luxo("LUXO");
+    POPULAR("POPULAR"),
+    INTERMEDIARIO("INTERMEDIARIO"),
+    LUXO("LUXO");
   
     private final String name;
     

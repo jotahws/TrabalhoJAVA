@@ -11,15 +11,15 @@ package trabjava;
  */
 public enum ModeloAutomovel {
 
-    gol("Gol"),
-    celta("Celta"),
-    palio("Palio"),
-    sandero("Sandero"),
-    clio("Clio"),
-    uno("Uno"),
-    up("Up"),
-    onix("Onix"),
-    hb("HB20"),
+    Gol("Gol"),
+    Celta("Celta"),
+    Palio("Palio"),
+    Sandero("Sandero"),
+    Clio("Clio"),
+    Uno("Uno"),
+    Up("Up"),
+    Onix("Onix"),
+    Hb("HB20"),
     AMG("AMG-GT");
     
     private final String name;

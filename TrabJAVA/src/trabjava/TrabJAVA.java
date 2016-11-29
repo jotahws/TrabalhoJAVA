@@ -90,7 +90,7 @@ public class TrabJAVA {
         String placa = scn.next();
         System.out.println("ano");
         int ano = scn.nextInt();
-        Veiculo veiculo = new Automovel(ModeloAutomovel.AMG, valorCompra, placa, ano, Marca.hyundai, Estado.DISPONIVEL, Categoria.luxo);
+        Veiculo veiculo = new Automovel(ModeloAutomovel.AMG, valorCompra, placa, ano, Marca.HYUNDAI, Estado.DISPONIVEL, Categoria.LUXO);
         AutomovelDAO autoDao = new AutomovelDAO();
         autoDao.inserirAutomovel((Automovel) veiculo);
         
@@ -102,7 +102,7 @@ public class TrabJAVA {
         placa = scn.next();
         System.out.println("ano");
         ano = scn.nextInt();
-        veiculo = new Van(ModeloVan.ducato, valorCompra, placa, ano, Marca.fiat, Estado.DISPONIVEL, Categoria.intermediario);
+        veiculo = new Van(ModeloVan.DUCATO, valorCompra, placa, ano, Marca.FIAT, Estado.DISPONIVEL, Categoria.INTERMEDIARIO);
         VanDAO vanDao = new VanDAO();
         vanDao.inserirVan((Van) veiculo);
     }
@@ -117,11 +117,22 @@ public class TrabJAVA {
 
     public static void ListarVeiculos() {
         VeiculoDAO veiculoDao = new VeiculoDAO();
-        List<Veiculo> lista = new ArrayList();
-        lista = veiculoDao.listaVeiculosDisponiveis("automovel", Marca.honda.toString(), Categoria.popular.toString(), 1);
+        List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("automovel", Marca.HONDA.toString(), Categoria.POPULAR.toString(), 1);
         for (Veiculo veiculo : lista) {
-            System.out.println("Veiculo= " + veiculo.getPlaca() + veiculo.getMarca().toString() );
+            int index = lista.indexOf(veiculo)+1;
+            System.out.println("Veiculo " +index+ " = " + veiculo.getPlaca() + " " + veiculo.getMarca().toString() );
         }
+        System.out.println("Qual veículo locar? ");
+        Scanner scn = new Scanner(System.in);
+        int indiceVeiculo = scn.nextInt()-1;
+        System.out.println("Quantidade de dias? ");
+        int dias = scn.nextInt();
+        Veiculo veiculoLocar = lista.get(indiceVeiculo);
+        Calendar data = Calendar.getInstance();
+        data.set(2016, 11, 29);
+        ClienteDAO cDAO = new ClienteDAO();
+        Cliente cliente = cDAO.buscaCliente(3);
+        veiculoLocar.locar(dias, data, cliente);
     }
 
 }
