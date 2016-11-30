@@ -5,6 +5,7 @@
  */
 package InterfacesGraficas;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import trabjava.Cliente;
 import trabjava.ClienteDAO;
@@ -54,6 +55,7 @@ public class NovoCliente extends javax.swing.JPanel {
         lblBairro = new javax.swing.JLabel();
         txtBairro = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
+        lblConcuido = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(80, 80, 80));
         setLayout(new java.awt.BorderLayout(0, 1));
@@ -135,6 +137,11 @@ public class NovoCliente extends javax.swing.JPanel {
             }
         });
 
+        lblConcuido.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        lblConcuido.setForeground(new java.awt.Color(0, 102, 51));
+        lblConcuido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblConcuido.setToolTipText("");
+
         javax.swing.GroupLayout panFieldsLayout = new javax.swing.GroupLayout(panFields);
         panFields.setLayout(panFieldsLayout);
         panFieldsLayout.setHorizontalGroup(
@@ -142,6 +149,7 @@ public class NovoCliente extends javax.swing.JPanel {
             .addGroup(panFieldsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblConcuido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panFieldsLayout.createSequentialGroup()
                         .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -215,7 +223,9 @@ public class NovoCliente extends javax.swing.JPanel {
                     .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrar)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(lblConcuido, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         add(panFields, java.awt.BorderLayout.CENTER);
@@ -244,8 +254,10 @@ public class NovoCliente extends javax.swing.JPanel {
         ClienteDAO clientedao = new ClienteDAO();
         try {
             clientedao.inserirCliente(cliente);
+            lblConcuido.setText("Cliente cadastrado com Sucesso.");
         } catch (RuntimeException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Cliente!\n"+ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+            lblConcuido.setForeground(Color.red);
+            lblConcuido.setText("Erro ao Cadastrar Cliente");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -256,6 +268,7 @@ public class NovoCliente extends javax.swing.JPanel {
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblComplemento;
+    private javax.swing.JLabel lblConcuido;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblRG;

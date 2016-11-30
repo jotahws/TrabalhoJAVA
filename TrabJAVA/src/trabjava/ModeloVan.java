@@ -11,7 +11,7 @@ package trabjava;
  */
 public enum ModeloVan {
 
-    KombiI("Kombi"),
+    Kombi("Kombi"),
     Sprinter("Sprinter"),
     Transit("Transit"),
     Ducato("Ducato");
