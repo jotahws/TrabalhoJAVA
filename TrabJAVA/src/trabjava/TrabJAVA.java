@@ -47,7 +47,7 @@ public class TrabJAVA {
                 locarVeiculo();
                 break;
             case 7:
-                devolverVeiculo();
+//                devolverVeiculo();
                 break;
             case 8:
                 ListarVeiculos();
@@ -131,12 +131,12 @@ public class TrabJAVA {
     public static void ListarVeiculos() {
     }
 
-    private static void devolverVeiculo() {
-        LocacaoDAO locacaoDao = new LocacaoDAO();
-        List<Locacao> locacaoList = locacaoDao.listaLocacao();
-        for (Locacao locacao : locacaoList) {
-            System.out.println("Cliente:" + locacao.getCliente().getNome() + " Dias:" + locacao.getDias() + " Valor:" + locacao.getValor() + " Data:" + locacao.getData().getTime());
-        }
-    }
+//    private static void devolverVeiculo() {
+//        LocacaoDAO locacaoDao = new LocacaoDAO();
+//        List<Locacao> locacaoList = locacaoDao.listaLocacao();
+//        for (Locacao locacao : locacaoList) {
+//            System.out.println("Cliente:" + locacao.getCliente().getNome() + " Dias:" + locacao.getDias() + " Valor:" + locacao.getValor() + " Data:" + locacao.getData().getTime());
+//        }
+//    }
 
 }

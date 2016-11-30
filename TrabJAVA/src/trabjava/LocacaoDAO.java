@@ -57,36 +57,36 @@ public class LocacaoDAO {
         }
     }
 
-    public List<Locacao> listaLocacao() {
-        try {
-            List<Locacao> lista = new ArrayList();
-            con = new ConnectionFactory().getConnection();
-            stmt = con.prepareStatement(selectLocacao);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                int locacaoID = rs.getInt("idlocacao");
-                int dias = rs.getInt("dias");
-                double valor = rs.getDouble("valor");
-                Calendar data = Calendar.getInstance();
-                data.setTime(rs.getDate("data"));
-                int idCliente = rs.getInt("cliente");
-                ClienteDAO clienteDao = new ClienteDAO();
-                Cliente cliente = clienteDao.buscaCliente(idCliente);
-                Locacao locacao = new Locacao(dias, valor, data, cliente);
-                locacao.setId(locacaoID);
-                lista.add(locacao);
-            }
-            return lista;
-        } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao listar locações: \n" + ex.getMessage());
-        } finally {
-            try {
-                stmt.close();
-                con.close();
-            } catch (SQLException ex) {
-                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
-            }
-        }
-    }
+//    public List<Locacao> listaLocacao() {
+//        try {
+//            List<Locacao> lista = new ArrayList();
+//            con = new ConnectionFactory().getConnection();
+//            stmt = con.prepareStatement(selectLocacao);
+//            rs = stmt.executeQuery();
+//            while (rs.next()) {
+//                int locacaoID = rs.getInt("idlocacao");
+//                int dias = rs.getInt("dias");
+//                double valor = rs.getDouble("valor");
+//                Calendar data = Calendar.getInstance();
+//                data.setTime(rs.getDate("data"));
+//                int idCliente = rs.getInt("cliente");
+//                ClienteDAO clienteDao = new ClienteDAO();
+//                Cliente cliente = clienteDao.buscaCliente(idCliente);
+//                Locacao locacao = new Locacao(dias, valor, data, cliente);
+//                locacao.setId(locacaoID);
+//                lista.add(locacao);
+//            }
+//            return lista;
+//        } catch (SQLException ex) {
+//            throw new RuntimeException("Erro ao listar locações: \n" + ex.getMessage());
+//        } finally {
+//            try {
+//                stmt.close();
+//                con.close();
+//            } catch (SQLException ex) {
+//                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
+//            }
+//        }
+//    }
 
 }
