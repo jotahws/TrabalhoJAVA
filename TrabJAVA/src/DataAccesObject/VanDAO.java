@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabjava;
+package DataAccesObject;
 
 import Conexao.ConnectionFactory;
 import java.sql.Connection;
@@ -13,25 +13,26 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import trabjava.Van;
 
 /**
  *
  * @author Gabriel
  */
-public class MotocicletaDAO {
+public class VanDAO {
 
-    private final String insertMotocicleta = "INSERT INTO MOTOCICLETA (VEICULO, MODELO) VALUES (?,?)";
-    private final String searchMotocicleta = "SELECT * FROM motocicleta WHERE veiculo=?";
+    private final String insertVan = "INSERT INTO van (veiculo, modelo) VALUES (?,?)";
+    private final String searchVan = "SELECT * FROM van WHERE veiculo=?";
     private Connection con = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
 
-    public void inserirMotocicleta(Motocicleta veiculo) {
+    public void inserirVan(Van veiculo) {
         try {
             VeiculoDAO veiculoDao = new VeiculoDAO();
             veiculoDao.inserirVeiculo(veiculo);
             con = new ConnectionFactory().getConnection();
-            stmt = con.prepareStatement(insertMotocicleta, Statement.RETURN_GENERATED_KEYS);
+            stmt = con.prepareStatement(insertVan, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, veiculo.getId());
             stmt.setString(2, veiculo.getModelo().toString());
             stmt.executeUpdate();
@@ -41,7 +42,7 @@ public class MotocicletaDAO {
 //                veiculo.setId(enderecoID);
 //            }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao inserir Motocicleta: \n" + ex.getMessage());
+            throw new RuntimeException("Erro ao inserir Van: \n" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
@@ -52,10 +53,10 @@ public class MotocicletaDAO {
         }
     }
     
-    public boolean isMoto(int idveiculo){
+    public boolean isVan(int idveiculo){
         try {
             con = new ConnectionFactory().getConnection();
-            stmt = con.prepareStatement(searchMotocicleta);
+            stmt = con.prepareStatement(searchVan);
             stmt.setInt(1, idveiculo);
             rs = stmt.executeQuery();
             if (rs.next()){

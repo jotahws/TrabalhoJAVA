@@ -5,6 +5,8 @@
  */
 package trabjava;
 
+import DataAccesObject.VeiculoDAO;
+import DataAccesObject.LocacaoDAO;
 import java.util.Calendar;
 
 /**

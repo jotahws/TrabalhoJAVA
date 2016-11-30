@@ -10,7 +10,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import trabjava.Automovel;
 import trabjava.Veiculo;
-import trabjava.VeiculoDAO;
+import DataAccesObject.VeiculoDAO;
 
 public class ModeloLocarTabela extends AbstractTableModel {
 

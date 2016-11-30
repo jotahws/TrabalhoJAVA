@@ -8,7 +8,7 @@ package InterfacesGraficas;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import trabjava.Cliente;
-import trabjava.ClienteDAO;
+import DataAccesObject.ClienteDAO;
 import trabjava.Endereco;
 
 /**

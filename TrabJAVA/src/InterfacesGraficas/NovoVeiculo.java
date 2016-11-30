@@ -8,9 +8,9 @@ package InterfacesGraficas;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import trabjava.Automovel;
-import trabjava.AutomovelDAO;
+import DataAccesObject.AutomovelDAO;
 import trabjava.Motocicleta;
-import trabjava.MotocicletaDAO;
+import DataAccesObject.MotocicletaDAO;
 import trabjava.Categoria;
 import trabjava.Estado;
 import trabjava.Marca;
@@ -18,7 +18,7 @@ import trabjava.ModeloAutomovel;
 import trabjava.ModeloMotocicleta;
 import trabjava.ModeloVan;
 import trabjava.Van;
-import trabjava.VanDAO;
+import DataAccesObject.VanDAO;
 import trabjava.Veiculo;
 
 /**

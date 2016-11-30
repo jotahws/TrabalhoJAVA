@@ -5,6 +5,10 @@
  */
 package trabjava;
 
+import DataAccesObject.VeiculoDAO;
+import DataAccesObject.AutomovelDAO;
+import DataAccesObject.ClienteDAO;
+import DataAccesObject.VanDAO;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

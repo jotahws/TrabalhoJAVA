@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabjava;
+package DataAccesObject;
 
 import Conexao.ConnectionFactory;
 import java.sql.Connection;
@@ -16,6 +16,17 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import trabjava.Automovel;
+import trabjava.Categoria;
+import trabjava.Estado;
+import trabjava.Locacao;
+import trabjava.Marca;
+import trabjava.ModeloAutomovel;
+import trabjava.ModeloMotocicleta;
+import trabjava.ModeloVan;
+import trabjava.Motocicleta;
+import trabjava.Van;
+import trabjava.Veiculo;
 
 /**
  *
