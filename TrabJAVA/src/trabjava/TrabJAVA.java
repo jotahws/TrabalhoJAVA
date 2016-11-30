@@ -40,8 +40,10 @@ public class TrabJAVA {
                 listaClientes();
                 break;
             case 2:
+                atualizarCliente();
                 break;
             case 3:
+                excluirCliente();
                 break;
             case 4:
                 inserirCliente();
@@ -60,7 +62,78 @@ public class TrabJAVA {
                 break;
         }
     }
+    
+    public static void listaClientes(){
+        ClienteDAO clienteDao = new ClienteDAO();
+        List<Cliente> lista = clienteDao.listaClientes();
+        for (Cliente cliente : lista) {
+            int index = lista.indexOf(cliente) + 1;
+            Endereco endereco = cliente.getEndereco();
+            System.out.println("Cliente " +index+ " = Nome: " +cliente.getNome() + " " + cliente.getSobrenome() +" RG: "
+                    + cliente.getRg() + " CPF: " + cliente.getCpf() + " Rua: " + endereco.getRua() + " Numero: "
+                    + endereco.getNumero() + " Complemento: " + endereco.getComplemento() + " Bairro: " + endereco.getBairro()
+                    + " Cidade: " + endereco.getCidade());
+        }
+    }
 
+    public static void atualizarCliente(){
+        ClienteDAO clienteDao = new ClienteDAO();
+        List<Cliente> lista = clienteDao.listaClientes();
+        for (Cliente cliente : lista) {
+            int index = lista.indexOf(cliente) + 1;
+            Endereco endereco = cliente.getEndereco();
+            System.out.println("Cliente " +index+ " = Nome: " +cliente.getNome() + " " + cliente.getSobrenome() +" RG: "
+                    + cliente.getRg() + " CPF: " + cliente.getCpf() + " Rua: " + endereco.getRua() + " Numero: "
+                    + endereco.getNumero() + " Complemento: " + endereco.getComplemento() + " Bairro: " + endereco.getBairro()
+                    + " Cidade: " + endereco.getCidade());
+        }
+        System.out.println("Qual cliente atualizar?");
+        Scanner scn = new Scanner(System.in);
+        int indiceCliente = scn.nextInt() - 1;
+        int idCliente = lista.get(indiceCliente).getId();
+        int idEndereco = lista.get(indiceCliente).getEndereco().getId();
+        System.out.println("nome");
+        String nome = scn.next();
+        System.out.println("sobrenome");
+        String sobrenome = scn.next();
+        System.out.println("cpf");
+        String cpf = scn.next();
+        System.out.println("rg");
+        String rg = scn.next();
+        System.out.println("rua");
+        String rua = scn.next();
+        System.out.println("cidade");
+        String cidade = scn.next();
+        System.out.println("bairro");
+        String bairro = scn.next();
+        System.out.println("numero");
+        String numero = scn.next();
+        System.out.println("complemento");
+        String complemento = scn.next();
+        Endereco endereco = new Endereco(rua, cidade, bairro, numero, complemento);
+        endereco.setId(idEndereco);
+        Cliente cliente = new Cliente(nome, sobrenome, cpf, rg, endereco);
+        cliente.setId(idCliente);
+        clienteDao.atualizarCliente(cliente.getId(), cliente);
+    }
+    
+    public static void excluirCliente(){
+        ClienteDAO clienteDao = new ClienteDAO();
+        List<Cliente> lista = clienteDao.listaClientes();
+        for (Cliente cliente : lista) {
+            int index = lista.indexOf(cliente) + 1;
+            Endereco endereco = cliente.getEndereco();
+            System.out.println("Cliente " +index+ " = Nome: " +cliente.getNome() + " " + cliente.getSobrenome() +" RG: "
+                    + cliente.getRg() + " CPF: " + cliente.getCpf() + " Rua: " + endereco.getRua() + " Numero: "
+                    + endereco.getNumero() + " Complemento: " + endereco.getComplemento() + " Bairro: " + endereco.getBairro()
+                    + " Cidade: " + endereco.getCidade());
+        }
+        System.out.println("Qual cliente deletar?");
+        Scanner scn = new Scanner(System.in);
+        int indexCliente = scn.nextInt() - 1;
+        clienteDao.excluirCliente(lista.get(indexCliente).getId());
+    }
+    
     private static void inserirCliente() {
         Scanner scn = new Scanner(System.in);
         System.out.println("nome");
@@ -116,7 +189,7 @@ public class TrabJAVA {
 
     public static void locarVeiculo() {
         VeiculoDAO veiculoDao = new VeiculoDAO();
-        List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("automovel", Marca.HONDA.toString(), Categoria.POPULAR.toString(), 3);
+        List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("van", null, null, 4);
         for (Veiculo veiculo : lista) {
             int index = lista.indexOf(veiculo) + 1;
             System.out.println("Veiculo " + index + " = " + veiculo.getPlaca() + " " + veiculo.getMarca().toString());
@@ -130,7 +203,7 @@ public class TrabJAVA {
         Calendar data = Calendar.getInstance();
         data.set(2016, 11, 29);
         ClienteDAO cDAO = new ClienteDAO();
-        Cliente cliente = cDAO.buscaCliente(2);
+        Cliente cliente = cDAO.buscaCliente(3);
         veiculoLocar.locar(dias, data, cliente);
     }
     
@@ -168,16 +241,4 @@ public class TrabJAVA {
         veiculoVender.vender();
     }
     
-    public static void listaClientes(){
-        ClienteDAO clienteDao = new ClienteDAO();
-        List<Cliente> lista = clienteDao.listaClientes();
-        for (Cliente cliente : lista) {
-            int index = lista.indexOf(cliente) + 1;
-            Endereco endereco = cliente.getEndereco();
-            System.out.println("Cliente " +index+ " = Nome: " +cliente.getNome() + " " + cliente.getSobrenome() +" RG: "
-                    + cliente.getRg() + " CPF: " + cliente.getCpf() + " Rua: " + endereco.getRua() + " Numero: "
-                    + endereco.getNumero() + " Complemento: " + endereco.getComplemento() + " Bairro: " + endereco.getBairro()
-                    + " Cidade: " + endereco.getCidade());
-        }
-    }
 }

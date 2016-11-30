@@ -174,7 +174,7 @@ public class VeiculoDAO {
                     stmt.setString(1, categoriaB);
                     break;
                 case 4:
-                    sql = whereDisponivel;
+                    sql = selectGenerico + tipoB + whereDisponivel;
                     stmt = con.prepareStatement(sql);
                     break;
             }

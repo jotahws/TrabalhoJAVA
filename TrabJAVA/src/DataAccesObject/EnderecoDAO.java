@@ -23,6 +23,7 @@ class EnderecoDAO {
 
     private String insertEndereco = "INSERT INTO ENDERECO (rua, cidade, bairro, numero, complemento) VALUES (?,?,?,?,?)";
     private String selectEndereco = "SELECT * FROM endereco WHERE idendereco=? ";
+    private String updateEndereco = "UPDATE endereco SET rua=?, cidade=?, bairro=?, numero=?, complemento=? WHERE idendereco=?";
     private Connection con = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
@@ -81,5 +82,29 @@ class EnderecoDAO {
             }
         }
         return null;
+    }
+    
+    public void atualizarEndereco(int id, Endereco endereco){
+        try {
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(updateEndereco);
+            stmt.setString(1, endereco.getRua());
+            stmt.setString(2, endereco.getCidade());
+            stmt.setString(3, endereco.getBairro());
+            stmt.setString(4, endereco.getNumero());
+            stmt.setString(5, endereco.getComplemento());
+            stmt.setInt(6,id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            try {
+                con.close();
+                stmt.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }
 }

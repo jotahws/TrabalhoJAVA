@@ -24,14 +24,16 @@ import trabjava.Endereco;
  */
 public class ClienteDAO {
 
-    private String insertCliente = "INSERT INTO CLIENTE (nome, sobrenome, cpf, rg, endereco) VALUES (?,?,?,?,?)";
-    private String searchCliente = "SELECT * FROM cliente WHERE idcliente=?";
-    private String listCliente = "SELECT * FROM cliente";
+    private final String insertCliente = "INSERT INTO CLIENTE (nome, sobrenome, cpf, rg, endereco) VALUES (?,?,?,?,?)";
+    private final String searchCliente = "SELECT * FROM cliente WHERE idcliente=?";
+    private final String listCliente = "SELECT * FROM cliente";
+    private final String deleteCliente = "DELETE FROM cliente WHERE idcliente=?";
+    private final String updateCliente = "UPDATE cliente SET nome=?, sobrenome=?, cpf=?, rg=? WHERE idcliente=?";
     private Connection con = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
 
-    public void inserirCliente(Cliente cliente) {
+    public void inserirCliente(Cliente cliente){
         Endereco endereco = cliente.getEndereco();
         EnderecoDAO enderecodao = new EnderecoDAO();
         enderecodao.inserirEndereco(endereco);
@@ -61,7 +63,34 @@ public class ClienteDAO {
         }
     }
 
-    public Cliente buscaCliente(int id) {
+    public void atualizarCliente(int id, Cliente cliente){
+        try {
+            Endereco endereco = cliente.getEndereco();
+            EnderecoDAO enderecodao = new EnderecoDAO();
+            enderecodao.atualizarEndereco(endereco.getId(), endereco);
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(updateCliente);
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getSobrenome());
+            stmt.setString(3, cliente.getCpf());
+            stmt.setString(4, cliente.getRg());
+            stmt.setInt(5, id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            try {
+                con.close();
+                stmt.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+    }
+    
+    public Cliente buscaCliente(int id){
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(searchCliente);
@@ -123,5 +152,23 @@ public class ClienteDAO {
             }
         }
         return null;
+    }
+    
+    public void excluirCliente(int id){
+        try {
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(deleteCliente);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Erro: " + ex.getMessage());
+        } finally{
+            try {
+                con.close();
+                stmt.close();
+            } catch (SQLException ex) {
+            System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
+            }
+        }
     }
 }
