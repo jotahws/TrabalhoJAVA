@@ -21,14 +21,14 @@ public class TrabJAVA {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("1-listar clientes\n"
-                + "2-atualizar dados de cliente\n"
-                + "3-Excluir clientes\n"
-                + "4-incluir cliente\n"
-                + "5-incluir veículo\n"
+        System.out.println("1-Listar clientes\n"
+                + "2-Atualizar dados de cliente\n"
+                + "3-Excluir cliente\n"
+                + "4-Incluir cliente\n"
+                + "5-Incluir veículo\n"
                 + "6-Locar veiculo\n"
-                + "7-devolver veiculo\n"
-                + "8-Listar Veiculos\n");
+                + "7-Devolver veiculo\n"
+                + "8-Vender Veiculo\n");
         Scanner scn = new Scanner(System.in);
         int opc = scn.nextInt();
         switch (opc) {
@@ -51,7 +51,7 @@ public class TrabJAVA {
                 devolverVeiculo();
                 break;
             case 8:
-                ListarVeiculos();
+                venderVeiculo();
                 break;
         }
     }
@@ -128,9 +128,6 @@ public class TrabJAVA {
         Cliente cliente = cDAO.buscaCliente(2);
         veiculoLocar.locar(dias, data, cliente);
     }
-
-    public static void ListarVeiculos() {
-    }
     
     public static void devolverVeiculo(){
         VeiculoDAO veiculoDao = new VeiculoDAO();
@@ -148,6 +145,20 @@ public class TrabJAVA {
         int indiceVeiculo = scn.nextInt() - 1;
         Veiculo veiculoDevolver = lista.get(indiceVeiculo);
         veiculoDevolver.devolver();
+    }
+    
+    public static void venderVeiculo(){ 
+        VeiculoDAO veiculoDao = new VeiculoDAO();
+        List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("automovel", Marca.HONDA.toString(), Categoria.POPULAR.toString(), 3);
+        for (Veiculo veiculo : lista) {
+            int index = lista.indexOf(veiculo) + 1;
+            System.out.println("Veiculo " + index + " = " + veiculo.getPlaca() + " " + veiculo.getMarca().toString());
+        }
+        System.out.println("Qual veículo vender? ");
+        Scanner scn = new Scanner(System.in);
+        int indiceVeiculo = scn.nextInt() - 1;
+        Veiculo veiculoVender = lista.get(indiceVeiculo);
+        veiculoVender.vender();
     }
 
 //    private static void devolverVeiculo() {

@@ -46,7 +46,9 @@ public abstract class Veiculo implements VeiculoI {
     
     @Override
     public void vender() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        VeiculoDAO veiculoDAO = new VeiculoDAO();
+        veiculoDAO.atualizaEstado("VENDIDO", this.id);
+        this.estado=Estado.VENDIDO;
     }
 
 
