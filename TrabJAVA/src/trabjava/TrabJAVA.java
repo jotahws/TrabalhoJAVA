@@ -153,6 +153,8 @@ public class TrabJAVA {
         List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("automovel", Marca.HONDA.toString(), Categoria.POPULAR.toString(), 3);
         for (Veiculo veiculo : lista) {
             int index = lista.indexOf(veiculo) + 1;
+            Automovel auto = (Automovel) veiculo;
+            auto.getModelo();
             System.out.println("Veiculo " + index + " = " + veiculo.getPlaca() + " " + veiculo.getMarca().toString());
         }
         System.out.println("Qual veículo vender? ");
@@ -173,15 +175,5 @@ public class TrabJAVA {
                     + endereco.getNumero() + " Complemento: " + endereco.getComplemento() + " Bairro: " + endereco.getBairro()
                     + " Cidade: " + endereco.getCidade());
         }
-        
     }
-
-//    private static void devolverVeiculo() {
-//        LocacaoDAO locacaoDao = new LocacaoDAO();
-//        List<Locacao> locacaoList = locacaoDao.listaLocacao();
-//        for (Locacao locacao : locacaoList) {
-//            System.out.println("Cliente:" + locacao.getCliente().getNome() + " Dias:" + locacao.getDias() + " Valor:" + locacao.getValor() + " Data:" + locacao.getData().getTime());
-//        }
-//    }
-
 }

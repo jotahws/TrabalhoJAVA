@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,12 +21,12 @@ import java.sql.Statement;
 public class AutomovelDAO {
 
     private final String insertAutomovel = "INSERT INTO automovel (veiculo, modelo) VALUES (?,?)";
-    private final String selectAutomovelID = "SELECT * FROM AUTOMOVEL WHERE IDAUTOMOVEL=?";
+    private final String searchAutomovel = "SELECT * FROM automovel WHERE veiculo=?";
     private Connection con = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
 
-    void inserirAutomovel(Automovel veiculo) {
+    public void inserirAutomovel(Automovel veiculo) {
         try {
             VeiculoDAO veiculoDao = new VeiculoDAO();
             veiculoDao.inserirVeiculo(veiculo);
@@ -49,31 +51,53 @@ public class AutomovelDAO {
             }
         }
     }
-
-    public void buscaAutomovel(int id) {
+    
+    public boolean isAuto(int idveiculo){
         try {
             con = new ConnectionFactory().getConnection();
-            stmt = con.prepareStatement(selectAutomovelID);
-            stmt.setInt(1, id);
+            stmt = con.prepareStatement(searchAutomovel);
+            stmt.setInt(1, idveiculo);
             rs = stmt.executeQuery();
-            if (rs.next()) {
-                int veiculo = rs.getInt("veiculo");
-                String modelo = rs.getString("modelo");
-                VeiculoDAO veiculoDao = new VeiculoDAO();
-//                Veiculo veiculo = new Automovel();
-//                endereco.setId(id);
-//                return endereco;
+            if (rs.next()){
+                return true;
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao buscar um Automóvel: \n" + ex.getMessage());
-        } finally {
             try {
-                stmt.close();
+                Logger.getLogger(VanDAO.class.getName()).log(Level.SEVERE, null, ex);
                 con.close();
-            } catch (SQLException ex) {
-                throw new RuntimeException("Erro ao fechar Statment ou fechar conexão\n " + ex.getMessage());
+                stmt.close();
+                rs.close();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AutomovelDAO.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
+        return false;
     }
+
+//    public void buscaAutomovel(int id) {
+//        try {
+//            con = new ConnectionFactory().getConnection();
+//            stmt = con.prepareStatement(selectAutomovelID);
+//            stmt.setInt(1, id);
+//            rs = stmt.executeQuery();
+//            if (rs.next()) {
+//                int veiculo = rs.getInt("veiculo");
+//                String modelo = rs.getString("modelo");
+//                VeiculoDAO veiculoDao = new VeiculoDAO();
+////                Veiculo veiculo = new Automovel();
+////                endereco.setId(id);
+////                return endereco;
+//            }
+//        } catch (SQLException ex) {
+//            throw new RuntimeException("Erro ao buscar um Automóvel: \n" + ex.getMessage());
+//        } finally {
+//            try {
+//                stmt.close();
+//                con.close();
+//            } catch (SQLException ex) {
+//                throw new RuntimeException("Erro ao fechar Statment ou fechar conexão\n " + ex.getMessage());
+//            }
+//        }
+//    }
 
 }

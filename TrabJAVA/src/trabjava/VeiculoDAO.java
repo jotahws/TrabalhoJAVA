@@ -228,4 +228,18 @@ public class VeiculoDAO {
             }
         }
     }
+    
+    public int descobreTipo(int idveiculo){
+        AutomovelDAO autoDAO = new AutomovelDAO();
+        MotocicletaDAO motoDAO = new MotocicletaDAO();
+        VanDAO vanDAO = new VanDAO();
+        if (autoDAO.isAuto(idveiculo))
+            return 1;
+        else if (motoDAO.isMoto(idveiculo))
+            return 2;
+        else if (vanDAO.isVan(idveiculo))
+            return 3;
+        else
+            return 0;
+    }
 }

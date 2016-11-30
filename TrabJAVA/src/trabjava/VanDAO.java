@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,9 +20,11 @@ import java.sql.Statement;
  */
 public class VanDAO {
 
-    private String insertVan = "INSERT INTO van (veiculo, modelo) VALUES (?,?)";
+    private final String insertVan = "INSERT INTO van (veiculo, modelo) VALUES (?,?)";
+    private final String searchVan = "SELECT * FROM van WHERE veiculo=?";
     private Connection con = null;
     private PreparedStatement stmt = null;
+    private ResultSet rs = null;
 
     public void inserirVan(Van veiculo) {
         try {
@@ -46,6 +50,28 @@ public class VanDAO {
                 throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
             }
         }
+    }
+    
+    public boolean isVan(int idveiculo){
+        try {
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(searchVan);
+            stmt.setInt(1, idveiculo);
+            rs = stmt.executeQuery();
+            if (rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            try {
+                Logger.getLogger(VanDAO.class.getName()).log(Level.SEVERE, null, ex);
+                con.close();
+                stmt.close();
+                rs.close();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AutomovelDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        return false;
     }
 
 }

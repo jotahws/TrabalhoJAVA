@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,11 +20,13 @@ import java.sql.Statement;
  */
 public class MotocicletaDAO {
 
-    private String insertMotocicleta = "INSERT INTO MOTOCICLETA (VEICULO, MODELO) VALUES (?,?)";
+    private final String insertMotocicleta = "INSERT INTO MOTOCICLETA (VEICULO, MODELO) VALUES (?,?)";
+    private final String searchMotocicleta = "SELECT * FROM motocicleta WHERE veiculo=?";
     private Connection con = null;
     private PreparedStatement stmt = null;
+    private ResultSet rs = null;
 
-    void inserirMotocicleta(Motocicleta veiculo) {
+    public void inserirMotocicleta(Motocicleta veiculo) {
         try {
             VeiculoDAO veiculoDao = new VeiculoDAO();
             veiculoDao.inserirVeiculo(veiculo);
@@ -46,6 +50,28 @@ public class MotocicletaDAO {
                 throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
             }
         }
+    }
+    
+    public boolean isMoto(int idveiculo){
+        try {
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(searchMotocicleta);
+            stmt.setInt(1, idveiculo);
+            rs = stmt.executeQuery();
+            if (rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            try {
+                Logger.getLogger(VanDAO.class.getName()).log(Level.SEVERE, null, ex);
+                con.close();
+                stmt.close();
+                rs.close();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AutomovelDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        return false;
     }
 
 }
