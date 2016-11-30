@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import trabjava.Automovel;
+import trabjava.Categoria;
+import trabjava.Marca;
 import trabjava.Veiculo;
 import DataAccesObject.VeiculoDAO;
 
@@ -19,12 +21,6 @@ public class ModeloLocarTabela extends AbstractTableModel {
 
     public ModeloLocarTabela() throws Exception {
         VeiculoDAO veiculoDao = new VeiculoDAO();
-        String tipo = new String();
-        String marca = new String();
-        String categoria = new String();
-        int opc = 0;
-        this.listaVeiculos = veiculoDao.listaVeiculosDisponiveis(tipo, marca, categoria, opc);
-        this.fireTableDataChanged();
     }
 
     @Override
@@ -66,12 +62,13 @@ public class ModeloLocarTabela extends AbstractTableModel {
 //                veiculo.setPlaca();
 //                break;
 //            case 1:
-//                autor.setNome((String) value);
+//                veiculo.setNome((String) value);
 //                break;
 //            default:
 //        }
 //        this.fireTableCellUpdated(row, col);
 //    }
+    
     @Override
     public boolean isCellEditable(int row, int column) {
 //        return column == 2;
@@ -100,6 +97,11 @@ public class ModeloLocarTabela extends AbstractTableModel {
                 break;
         }
         return clazz;
+    }
+
+    public void setListaVeiculos(List<Veiculo> listaVeiculosDisponiveis) {
+        this.listaVeiculos = listaVeiculosDisponiveis;
+        fireTableDataChanged();
     }
 
 }

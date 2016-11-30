@@ -189,7 +189,7 @@ public class TrabJAVA {
 
     public static void locarVeiculo() {
         VeiculoDAO veiculoDao = new VeiculoDAO();
-        List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("van", null, null, 4);
+        List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("automovel", null, null, 4);
         for (Veiculo veiculo : lista) {
             int index = lista.indexOf(veiculo) + 1;
             System.out.println("Veiculo " + index + " = " + veiculo.getPlaca() + " " + veiculo.getMarca().toString());

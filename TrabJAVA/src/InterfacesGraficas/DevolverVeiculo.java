@@ -5,39 +5,17 @@
  */
 package InterfacesGraficas;
 
-import ModelosTabela.ModeloLocarTabela;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import DataAccesObject.VeiculoDAO;
-import trabjava.Categoria;
-import trabjava.Marca;
-
 /**
  *
  * @author JotaWind
  */
-public class LocarVeiculo extends javax.swing.JPanel {
-
-    private ModeloLocarTabela modeloTabela;
+public class DevolverVeiculo extends javax.swing.JPanel {
 
     /**
-     * Creates new form LocarVeiculo
+     * Creates new form DevolverVeiclo
      */
-    public LocarVeiculo() {
-        try {
-            modeloTabela = new ModeloLocarTabela();
-        } catch (Exception ex) {
-            throw new RuntimeException("erro ao carregar tabela.");
-        }
+    public DevolverVeiculo() {
         initComponents();
-        try {
-            VeiculoDAO dao = new VeiculoDAO();
-            String tipo = "automovel";
-            modeloTabela.setListaVeiculos(dao.listaVeiculosDisponiveis(tipo, null, null, 4));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     /**
@@ -49,19 +27,18 @@ public class LocarVeiculo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         panTitulo = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         panFields = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblLocar = new javax.swing.JTable();
 
-        setLayout(new java.awt.BorderLayout());
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
         panTitulo.setPreferredSize(new java.awt.Dimension(597, 60));
 
         lblTitulo.setFont(new java.awt.Font("Al Bayan", 0, 24)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Locar veículo");
+        lblTitulo.setText("Devolver Veículo");
         lblTitulo.setMaximumSize(new java.awt.Dimension(199, 15));
         lblTitulo.setMinimumSize(new java.awt.Dimension(250, 42));
 
@@ -78,39 +55,47 @@ public class LocarVeiculo extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        add(panTitulo, java.awt.BorderLayout.PAGE_START);
+        jPanel1.add(panTitulo, java.awt.BorderLayout.PAGE_START);
 
         panFields.setPreferredSize(new java.awt.Dimension(597, 302));
-
-        tblLocar.setModel(modeloTabela);
-        jScrollPane1.setViewportView(tblLocar);
 
         javax.swing.GroupLayout panFieldsLayout = new javax.swing.GroupLayout(panFields);
         panFields.setLayout(panFieldsLayout);
         panFieldsLayout.setHorizontalGroup(
             panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFieldsLayout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+            .addGap(0, 597, Short.MAX_VALUE)
         );
         panFieldsLayout.setVerticalGroup(
             panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panFieldsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 372, Short.MAX_VALUE)
         );
 
-        add(panFields, java.awt.BorderLayout.CENTER);
+        jPanel1.add(panFields, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 609, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 432, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel panFields;
     private javax.swing.JPanel panTitulo;
-    private javax.swing.JTable tblLocar;
     // End of variables declaration//GEN-END:variables
 }
