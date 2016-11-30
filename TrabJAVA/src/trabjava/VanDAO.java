@@ -22,7 +22,7 @@ public class VanDAO {
     private Connection con = null;
     private PreparedStatement stmt = null;
 
-    void inserirVan(Van veiculo) {
+    public void inserirVan(Van veiculo) {
         try {
             VeiculoDAO veiculoDao = new VeiculoDAO();
             veiculoDao.inserirVeiculo(veiculo);

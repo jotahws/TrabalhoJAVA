@@ -34,7 +34,7 @@ public abstract class Veiculo implements VeiculoI {
 
     @Override
     public void locar(int dias, Calendar data, Cliente cliente) {
-        double valor = this.getValorDiariaLocacao();
+        double valor = this.getValorDiariaLocacao()*dias;
         Locacao locacao = new Locacao(dias, valor, data, cliente);
         this.locacao=locacao;
         LocacaoDAO locacaoDAO = new LocacaoDAO();
@@ -43,15 +43,19 @@ public abstract class Veiculo implements VeiculoI {
         VeiculoDAO veiculoDAO = new VeiculoDAO();
         veiculoDAO.atualizaEstado("LOCADO", this.id);
     }
-
+    
     @Override
     public void vender() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+
     public void devolver() {
-        
+        LocacaoDAO locDAO = new LocacaoDAO();
+        locDAO.deletaLocacao(this.id);
+        VeiculoDAO vecDAO = new VeiculoDAO();
+        vecDAO.atualizaEstado("DISPONIVEL", this.id);
+        this.estado=Estado.DISPONIVEL;
     }
 
     @Override
@@ -82,6 +86,14 @@ public abstract class Veiculo implements VeiculoI {
     @Override
     public int getAno() {
         return this.ano;
+    }
+    
+    public void setLocacao(Locacao locacao){
+        this.locacao=locacao;
+    }
+
+    public Double getValorDeCompra() {
+        return valorDeCompra;
     }
 
     @Override

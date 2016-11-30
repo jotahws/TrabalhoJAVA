@@ -8,6 +8,7 @@ package trabjava;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -47,7 +48,7 @@ public class TrabJAVA {
                 locarVeiculo();
                 break;
             case 7:
-//                devolverVeiculo();
+                devolverVeiculo();
                 break;
             case 8:
                 ListarVeiculos();
@@ -110,7 +111,7 @@ public class TrabJAVA {
 
     public static void locarVeiculo() {
         VeiculoDAO veiculoDao = new VeiculoDAO();
-        List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("van", Marca.FIAT.toString(), Categoria.INTERMEDIARIO.toString(), 3);
+        List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("automovel", Marca.HONDA.toString(), Categoria.POPULAR.toString(), 3);
         for (Veiculo veiculo : lista) {
             int index = lista.indexOf(veiculo) + 1;
             System.out.println("Veiculo " + index + " = " + veiculo.getPlaca() + " " + veiculo.getMarca().toString());
@@ -129,6 +130,24 @@ public class TrabJAVA {
     }
 
     public static void ListarVeiculos() {
+    }
+    
+    public static void devolverVeiculo(){
+        VeiculoDAO veiculoDao = new VeiculoDAO();
+        List<Veiculo> lista = veiculoDao.listaVeiculoLocados();
+        for (Veiculo veiculo : lista) {
+            int index = lista.indexOf(veiculo) + 1;
+            System.out.println("Veiculo " + index + " = Cliente: " + veiculo.getLocacao().getCliente().getNome() + " Placa: "
+                    + veiculo.getPlaca() + " Marca: " + veiculo.getMarca().toString() + " Modelo: Não sei botá Ano: " 
+                    + veiculo.getAno() + " Data Locação: " + veiculo.getLocacao().getData().getCalendarType() + " Preço Diária: "
+                    + veiculo.getValorDiariaLocacao() + " Quantidade de dias locado: " + veiculo.getLocacao().getDias() +
+                    " Valor Locação: " + veiculo.getLocacao().getValor());
+        }
+        System.out.println("Qual veículo devolver? ");
+        Scanner scn = new Scanner(System.in);
+        int indiceVeiculo = scn.nextInt() - 1;
+        Veiculo veiculoDevolver = lista.get(indiceVeiculo);
+        veiculoDevolver.devolver();
     }
 
 //    private static void devolverVeiculo() {

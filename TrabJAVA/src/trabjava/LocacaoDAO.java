@@ -25,7 +25,8 @@ import java.util.logging.Logger;
 public class LocacaoDAO {
 
     private String insertLocacao = "INSERT INTO locacao (dias, valor, data, cliente, veiculo) VALUES (?,?,?,?,?)";
-    private String selectLocacao = "SELECT * FROM locacao";
+    private String selectLocacao = "SELECT * FROM locacao WHERE veiculo=?";
+    private String dropLocacao = "DELETE FROM locacao WHERE veiculo=?";
     private Connection con = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
@@ -53,6 +54,57 @@ public class LocacaoDAO {
                 con.close();
             } catch (SQLException ex) {
                 throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
+            }
+        }
+    }
+    
+    public Locacao buscaLocacao(int idVeiculo){
+        try {
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(selectLocacao);
+            stmt.setInt(1, idVeiculo);
+            rs = stmt.executeQuery();
+            if (rs.next()){
+                int idLocacao = rs.getInt("idlocacao");
+                int dias = rs.getInt("dias");
+                double valor = rs.getDouble("valor");
+                Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("data"));
+                int idCliente = rs.getInt("cliente");
+                ClienteDAO clienteDao = new ClienteDAO();
+                Cliente cliente = clienteDao.buscaCliente(idCliente);
+                Locacao locacao = new Locacao(dias, valor, data, cliente);
+                locacao.setId(idLocacao);
+                return locacao;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro: " +ex.getMessage());
+        } finally{
+            try {
+                stmt.close();
+                con.close();
+                rs.close();
+            } catch (SQLException ex) {
+                System.out.println("Erro ao fechar parametros: " +ex.getMessage());
+            }
+        }
+        return null;
+    }
+    
+    public void deletaLocacao(int idVeiculo){
+        try {
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(dropLocacao);
+            stmt.setInt(1, idVeiculo);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(LocacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            try {
+                con.close();
+                stmt.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(LocacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

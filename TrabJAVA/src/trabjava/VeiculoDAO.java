@@ -33,6 +33,10 @@ public class VeiculoDAO {
             + " and v.categoria=? ";
     private final String selectGenerico = "SELECT * FROM veiculo V, ";
     private final String updateEstado = "UPDATE veiculo SET estado=? WHERE idveiculo=?";
+    private final String selectLocadoAuto = "SELECT * FROM veiculo V, automovel A WHERE estado='LOCADO' AND V.idveiculo=A.veiculo";
+    private final String selectLocadoVan = "SELECT * FROM veiculo V, van K WHERE estado='LOCADO' AND V.idveiculo=K.veiculo";
+    private final String selectLocadoMoto = "SELECT * FROM veiculo V, motocicleta M WHERE estado='LOCADO' AND V.idveiculo=M.veiculo";
+    
     private Connection con = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
@@ -41,7 +45,7 @@ public class VeiculoDAO {
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(insertVeiculo, Statement.RETURN_GENERATED_KEYS);
-            stmt.setDouble(1, calculaValorDeCompra(veiculo.getValorParaVenda(), veiculo.getAno()));
+            stmt.setDouble(1, veiculo.getValorDeCompra());
             stmt.setString(2, veiculo.getPlaca());
             stmt.setInt(3, veiculo.getAno());
             stmt.setString(4, veiculo.getMarca().toString());
@@ -64,18 +68,79 @@ public class VeiculoDAO {
             }
         }
     }
-
-    private double calculaValorDeCompra(double valorVenda, int ano) {
-        Calendar c = Calendar.getInstance();
-        int idade = c.get(Calendar.YEAR) - ano;
-        double valorCompra = (1 - 0.15 * idade) / valorVenda;
-        if (valorCompra < 0) {
-            valorCompra = (valorVenda / 0.1);
-            return valorCompra;
+    
+    public List<Veiculo> listaVeiculoLocados(){
+        try {
+            List<Veiculo> lista = new ArrayList();
+            LocacaoDAO locDAO = new LocacaoDAO();
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(selectLocadoAuto);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                int idVeiculo = rs.getInt("idveiculo");
+                double valorCompra = rs.getDouble("valor_compra");
+                String placa = rs.getString("placa");
+                int ano = rs.getInt("ano");
+                String marcaV = rs.getString("marca");
+                String estado = rs.getString("estado");
+                String categoriaV = rs.getString("categoria");
+                int idFilho = rs.getInt(8);
+                String modelo = rs.getString("modelo");
+                Veiculo auto = new Automovel(idFilho, ModeloAutomovel.valueOf(modelo), valorCompra, placa, ano, Marca.valueOf(marcaV), Estado.valueOf(estado), Categoria.valueOf(categoriaV));
+                Locacao locacao = locDAO.buscaLocacao(idVeiculo);
+                auto.setLocacao(locacao);
+                auto.setId(idVeiculo);
+                lista.add(auto);
+            }
+            stmt = con.prepareStatement(selectLocadoMoto);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                int idVeiculo = rs.getInt("idveiculo");
+                double valorCompra = rs.getDouble("valor_compra");
+                String placa = rs.getString("placa");
+                int ano = rs.getInt("ano");
+                String marcaV = rs.getString("marca");
+                String estado = rs.getString("estado");
+                String categoriaV = rs.getString("categoria");
+                int idFilho = rs.getInt(8);
+                String modelo = rs.getString("modelo");
+                Veiculo moto = new Motocicleta(idFilho, ModeloMotocicleta.valueOf(modelo), valorCompra, placa, ano, Marca.valueOf(marcaV), Estado.valueOf(estado), Categoria.valueOf(categoriaV));
+                Locacao locacao = locDAO.buscaLocacao(idVeiculo);
+                moto.setLocacao(locacao);
+                moto.setId(idVeiculo);
+                lista.add(moto);
+            }
+            stmt = con.prepareStatement(selectLocadoVan);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                int idVeiculo = rs.getInt("idveiculo");
+                double valorCompra = rs.getDouble("valor_compra");
+                String placa = rs.getString("placa");
+                int ano = rs.getInt("ano");
+                String marcaV = rs.getString("marca");
+                String estado = rs.getString("estado");
+                String categoriaV = rs.getString("categoria");
+                int idFilho = rs.getInt(8);
+                String modelo = rs.getString("modelo");Veiculo van = new Van(idFilho, ModeloVan.valueOf(modelo), valorCompra, placa, ano, Marca.valueOf(marcaV), Estado.valueOf(estado), Categoria.valueOf(categoriaV));
+                Locacao locacao = locDAO.buscaLocacao(idVeiculo);
+                van.setLocacao(locacao);
+                van.setId(idVeiculo);
+                lista.add(van);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            try {
+                System.out.println("Erro: " + ex.getMessage());
+                stmt.close();
+                con.close();
+                rs.close();
+            } catch (SQLException ex1) {
+                System.out.println("Erro no encerramento dos parâmetros: " + ex1.getMessage());
+            }
         }
-        return valorCompra;
+        return null;
     }
-
+    
     public List<Veiculo> listaVeiculosDisponiveis(String tipoB, String marcaB, String categoriaB, int opt) {
         try {
             con = new ConnectionFactory().getConnection();
