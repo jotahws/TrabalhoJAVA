@@ -11,6 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,7 +23,8 @@ import java.sql.Statement;
 public class ClienteDAO {
 
     private String insertCliente = "INSERT INTO CLIENTE (nome, sobrenome, cpf, rg, endereco) VALUES (?,?,?,?,?)";
-    private String selectCliente = "SELECT * FROM cliente WHERE idcliente=?";
+    private String searchCliente = "SELECT * FROM cliente WHERE idcliente=?";
+    private String listCliente = "SELECT * FROM cliente";
     private Connection con = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
@@ -57,7 +62,7 @@ public class ClienteDAO {
     public Cliente buscaCliente(int id) {
         try {
             con = new ConnectionFactory().getConnection();
-            stmt = con.prepareStatement(selectCliente);
+            stmt = con.prepareStatement(searchCliente);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             if (rs.next()) {
@@ -80,6 +85,39 @@ public class ClienteDAO {
                 con.close();
             } catch (SQLException ex) {
                 throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
+            }
+        }
+        return null;
+    }
+    
+    public List<Cliente> listaClientes(){
+        try {
+            List<Cliente> lista = new ArrayList();
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(listCliente);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("idcliente");
+                String nome = rs.getString("nome");
+                String sobrenome = rs.getString("sobrenome");
+                String cpf = rs.getString("cpf");
+                String rg = rs.getString("rg");
+                int enderecoID = rs.getInt("endereco");
+                EnderecoDAO eDAO = new EnderecoDAO();
+                Endereco endereco = eDAO.buscaEndereco(enderecoID);
+                Cliente cliente = new Cliente(nome, sobrenome, rg, cpf, endereco);
+                cliente.setId(id);
+                lista.add(cliente);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            try {
+                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+                con.close();
+                stmt.close();
+                rs.close();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
         return null;

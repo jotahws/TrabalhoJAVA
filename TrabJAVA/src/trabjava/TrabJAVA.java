@@ -33,6 +33,7 @@ public class TrabJAVA {
         int opc = scn.nextInt();
         switch (opc) {
             case 1:
+                listaClientes();
                 break;
             case 2:
                 break;
@@ -159,6 +160,20 @@ public class TrabJAVA {
         int indiceVeiculo = scn.nextInt() - 1;
         Veiculo veiculoVender = lista.get(indiceVeiculo);
         veiculoVender.vender();
+    }
+    
+    public static void listaClientes(){
+        ClienteDAO clienteDao = new ClienteDAO();
+        List<Cliente> lista = clienteDao.listaClientes();
+        for (Cliente cliente : lista) {
+            int index = lista.indexOf(cliente) + 1;
+            Endereco endereco = cliente.getEndereco();
+            System.out.println("Cliente " +index+ " = Nome: " +cliente.getNome() + " " + cliente.getSobrenome() +" RG: "
+                    + cliente.getRg() + " CPF: " + cliente.getCpf() + " Rua: " + endereco.getRua() + " Numero: "
+                    + endereco.getNumero() + " Complemento: " + endereco.getComplemento() + " Bairro: " + endereco.getBairro()
+                    + " Cidade: " + endereco.getCidade());
+        }
+        
     }
 
 //    private static void devolverVeiculo() {
