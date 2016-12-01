@@ -50,13 +50,13 @@ public class LocacaoDAO {
                 locacao.setId(locacaoID);
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao criar locação: \n" + ex.getMessage());
+            System.out.println("Erro ao inserir locação: " +ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
     }
@@ -81,7 +81,7 @@ public class LocacaoDAO {
                 return locacao;
             }
         } catch (SQLException ex) {
-            System.out.println("Erro: " +ex.getMessage());
+            System.out.println("Erro ao buscar locação: " +ex.getMessage());
         } finally{
             try {
                 stmt.close();
@@ -101,13 +101,13 @@ public class LocacaoDAO {
             stmt.setInt(1, idVeiculo);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(LocacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro ao deletar locação: " + ex.getMessage());
         } finally{
             try {
                 con.close();
                 stmt.close();
             } catch (SQLException ex) {
-                Logger.getLogger(LocacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
     }

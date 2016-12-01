@@ -69,13 +69,13 @@ public class VeiculoDAO {
                 veiculo.setId(veiculoID);
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao inserir Veículo: \n" + ex.getMessage());
+            System.out.println("Erro ao inserir Veículo: " + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
     }
@@ -140,13 +140,14 @@ public class VeiculoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            try {
                 System.out.println("Erro: " + ex.getMessage());
+        } finally{
+            try {
                 stmt.close();
                 con.close();
                 rs.close();
-            } catch (SQLException ex1) {
-                System.out.println("Erro no encerramento dos parâmetros: " + ex1.getMessage());
+            } catch (SQLException ex) {
+                System.out.println("Erro no encerramento dos parâmetros: " + ex.getMessage());
             }
         }
         return null;
@@ -210,15 +211,16 @@ public class VeiculoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao lista veículos Disponíveis \n" + ex.getMessage());
+            System.out.println("Erro ao lista veículos Disponíveis " + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
+                System.out.println("Erro ao fechar parâmetros" + ex.getMessage());
             }
         }
+        return null;
     }
 
     public void atualizaEstado(String Estado, int id) {
@@ -229,13 +231,13 @@ public class VeiculoDAO {
             stmt.setInt(2, id);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao atualizar estado do Veículo \n" + ex.getMessage());
+            System.out.println("Erro ao atualizar estado do Veículo: " + ex.getMessage());
         } finally {
             try {
                 con.close();
                 stmt.close();
             } catch (SQLException ex) {
-                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
     }

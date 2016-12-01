@@ -53,13 +53,13 @@ public class ClienteDAO {
                 cliente.setId(clienteID);
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao criar cliente: \n" + ex.getMessage());
+            System.out.println("Erro ao criar cliente: " + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
     }
@@ -78,13 +78,13 @@ public class ClienteDAO {
             stmt.setInt(5, id);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro ao atualizar cliente: " +ex.getMessage());
         } finally{
             try {
                 con.close();
                 stmt.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Erro ao fechar parâmetros: " +ex.getMessage());
             }
         }
         
@@ -110,13 +110,13 @@ public class ClienteDAO {
                 return cliente;
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao buscar um cliente: \n" + ex.getMessage());
+            System.out.println("Erro ao buscar um cliente: " + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
         return null;
@@ -143,13 +143,14 @@ public class ClienteDAO {
             }
             return lista;
         } catch (SQLException ex) {
+            System.out.println("Erro ao listar clientes: " + ex.getMessage());
+        } finally{           
             try {
-                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
                 con.close();
                 stmt.close();
                 rs.close();
-            } catch (SQLException ex1) {
-                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            } catch (SQLException ex) {
+                System.out.println("Erro ao fechar parâmetros: " +ex.getMessage());
             }
         }
         return null;
@@ -162,7 +163,7 @@ public class ClienteDAO {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Erro: " + ex.getMessage());
+            System.out.println("Erro ao excluir cliente: " + ex.getMessage());
         } finally{
             try {
                 con.close();
@@ -197,14 +198,14 @@ public class ClienteDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro ao buscar cliente: " + ex.getMessage());
         }finally{
             try {
                 con.close();
                 stmt.close();
                 rs.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
         return null;

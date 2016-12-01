@@ -44,13 +44,13 @@ class EnderecoDAO {
                 endereco.setId(enderecoID);
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao criar endereço: \n" + ex.getMessage());
+            System.out.println("Erro ao criar endereço: " + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                throw new RuntimeException("Erro ao fechar Statment ou Conexão: \n" + ex.getMessage());
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
     }
@@ -72,13 +72,13 @@ class EnderecoDAO {
                 return endereco;
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Erro ao buscar endereço: \n" + ex.getMessage());
+            System.out.println("Erro ao buscar endereço: " + ex.getMessage());
         } finally {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                throw new RuntimeException("Erro ao fechar Statmento ou Conexão: \n" + ex.getMessage());
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
         return null;
@@ -96,13 +96,13 @@ class EnderecoDAO {
             stmt.setInt(6,id);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro ao atualizar endereço: " +ex.getMessage());
         } finally{
             try {
                 con.close();
                 stmt.close();
             } catch (SQLException ex) {
-                Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Erro ao fechar parâmetros: " +ex.getMessage());
             }
         }
         
