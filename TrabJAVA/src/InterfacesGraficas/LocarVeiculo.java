@@ -15,7 +15,10 @@ import trabjava.Categoria;
 import trabjava.Marca;
 import trabjava.Veiculo;
 import trabjava.Locacao;
+import trabjava.Cliente;
 import DataAccesObject.LocacaoDAO;
+import DataAccesObject.ClienteDAO;
+import java.util.Calendar;
 
 /**
  *
@@ -73,6 +76,10 @@ public class LocarVeiculo extends javax.swing.JPanel {
         txtData = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtCliente = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtSobrenome = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtCPF = new javax.swing.JTextField();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -140,7 +147,22 @@ public class LocarVeiculo extends javax.swing.JPanel {
 
         jLabel5.setText("Data:");
 
-        jLabel6.setText("Nome, sobrenome ou CPF do Cliente:");
+        jLabel6.setText("Nome do cliente:");
+
+        txtCliente.setText(" ");
+        txtCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClienteActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Sobrenome do cliente:");
+
+        txtSobrenome.setText(" ");
+
+        jLabel8.setText("CPF do Cliente:");
+
+        txtCPF.setText(" ");
 
         javax.swing.GroupLayout panFieldsLayout = new javax.swing.GroupLayout(panFields);
         panFields.setLayout(panFieldsLayout);
@@ -166,22 +188,30 @@ public class LocarVeiculo extends javax.swing.JPanel {
                                 .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFieldsLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLocar))
                             .addGroup(panFieldsLayout.createSequentialGroup()
-                                .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnLocar)
-                                    .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(panFieldsLayout.createSequentialGroup()
-                                            .addComponent(jLabel4)
-                                            .addGap(3, 3, 3)
-                                            .addComponent(txtDias, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jLabel5)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(panFieldsLayout.createSequentialGroup()
-                                            .addComponent(jLabel6)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtCliente))))
+                                .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panFieldsLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(3, 3, 3)
+                                        .addComponent(txtDias, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panFieldsLayout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtSobrenome)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -207,9 +237,14 @@ public class LocarVeiculo extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLocar)
+                .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLocar)
+                    .addComponent(jLabel8)
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -219,8 +254,18 @@ public class LocarVeiculo extends javax.swing.JPanel {
     private void btnLocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocarActionPerformed
         Veiculo veiculo = modeloTabela.getSelecionado(tblLocar.getSelectedRow());
         LocacaoDAO Ldao = new LocacaoDAO();
-//        Locacao locacao = new Locacao(txtDias.getText(), veiculo.getValorDiariaLocacao(), );
-//        Ldao.inserirLocacao(locacao, veiculo);
+        ClienteDAO cDao = new ClienteDAO();
+        List<Cliente> listaCliente = cDao.buscaClientePorNome(txtCliente.getText(), txtSobrenome.getText(), txtCPF.getText());
+        Cliente cliente = listaCliente.get(0);
+        String[] diasSeparados = txtData.toString().split("/");
+        int[] diasInt = {1,2,3};
+        for (int i = 0; i < 3; i++) {
+            diasInt[i] = Integer.parseInt(diasSeparados[i]);
+        }
+        Calendar data =  Calendar.getInstance();
+        data.set(diasInt[2], diasInt[1], diasInt[0]);
+        Locacao locacao = new Locacao(Integer.parseInt(txtDias.getText()), veiculo.getValorDiariaLocacao(), data ,cliente);
+        Ldao.inserirLocacao(locacao, veiculo);
     }//GEN-LAST:event_btnLocarActionPerformed
 
     private void btnFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltroActionPerformed
@@ -267,6 +312,10 @@ public class LocarVeiculo extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDiasActionPerformed
 
+    private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClienteActionPerformed
+
     public String getComboTipo(){
         return comboTipo.getSelectedItem().toString();
     }
@@ -283,13 +332,17 @@ public class LocarVeiculo extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel panFields;
     private javax.swing.JPanel panTitulo;
     private javax.swing.JTable tblLocar;
+    private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtDias;
+    private javax.swing.JTextField txtSobrenome;
     // End of variables declaration//GEN-END:variables
 }
