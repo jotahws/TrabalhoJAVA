@@ -199,13 +199,13 @@ public class ClienteDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
-            try {
-                con.close();
-                stmt.close();
-                rs.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                con.close();
+//                stmt.close();
+//                rs.close();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
         return null;
     }

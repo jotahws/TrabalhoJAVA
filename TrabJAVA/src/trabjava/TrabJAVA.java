@@ -241,22 +241,68 @@ public class TrabJAVA {
     }
 
     public static void locarVeiculo() {
+        String nome = "";
+        String sobrenome = "";
+        String cpf = "";
+        System.out.println("Escolha um cliente: ");
+        System.out.println("1 - Por nome");
+        System.out.println("2 - Por sobrenome");
+        System.out.println("3 - Por cpf");
+        Scanner scn = new Scanner(System.in);
+        int busc = scn.nextInt();
+        switch (busc){
+            case 1:
+                System.out.println("Digite um nome: ");
+                nome = scn.next();
+            break;
+            case 2:
+                System.out.println("Digite um sobrenome: ");
+                sobrenome = scn.next();
+            break;
+            case 3:
+                System.out.println("Digite um cpf: ");
+                cpf = scn.next();
+            break;
+        }
+        ClienteDAO cDAO = new ClienteDAO();
+        List<Cliente> listaC = cDAO.buscaClientePorNome(nome, sobrenome, cpf);
+        for (Cliente cliente : listaC){
+            int index = listaC.indexOf(cliente)+1;
+            System.out.println("Cliente " + index + " = " + cliente.getNome() + cliente.getSobrenome() + " CPF: "
+                    + cliente.getCpf());
+        }
+        System.out.println("Qual cliente irá locar o veículo?");
+        int indiceCliente = scn.nextInt()-1;
+        Cliente cliente = listaC.get(indiceCliente);
         VeiculoDAO veiculoDao = new VeiculoDAO();
-        List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("automovel", "CHEVROLET", null, 2);
-        for (Veiculo veiculo : lista) {
-            int index = lista.indexOf(veiculo) + 1;
-            System.out.println("Veiculo " + index + " = " + veiculo.getPlaca() + " " + veiculo.getMarca().toString());
+        List<Veiculo> listaV = veiculoDao.listaVeiculosDisponiveis("automovel", "CHEVROLET", null, 2);
+        for (Veiculo veiculo : listaV) {
+            int index = listaV.indexOf(veiculo) + 1;
+            int tipo = veiculoDao.descobreTipo(veiculo.getId());
+            String modelo = "";
+            switch (tipo){
+                case 1:
+                    Automovel auto = (Automovel) veiculo;
+                    modelo = auto.getModelo().toString();
+                break;
+                case 2:
+                    Motocicleta moto = (Motocicleta) veiculo;
+                    modelo = moto.getModelo().toString();
+                break;
+                case 3:
+                    Van van = (Van) veiculo;
+                    modelo = van.getModelo().toString();
+            }
+            System.out.println("Veiculo " + index + " = " + veiculo.getPlaca() + " " + veiculo.getMarca().toString() + " "
+                    + modelo + " " + veiculo.getAno() + " " + veiculo.getValorDiariaLocacao());
         }
         System.out.println("Qual veículo locar? ");
-        Scanner scn = new Scanner(System.in);
         int indiceVeiculo = scn.nextInt() - 1;
         System.out.println("Quantidade de dias? ");
         int dias = scn.nextInt();
-        Veiculo veiculoLocar = lista.get(indiceVeiculo);
+        Veiculo veiculoLocar = listaV.get(indiceVeiculo);
         Calendar data = Calendar.getInstance();
-        data.set(2016, 11, 29);
-        ClienteDAO cDAO = new ClienteDAO();
-        Cliente cliente = cDAO.buscaCliente(3);
+        data.set(2016, 12, 01);
         veiculoLocar.locar(dias, data, cliente);
     }
     
@@ -283,9 +329,23 @@ public class TrabJAVA {
         List<Veiculo> lista = veiculoDao.listaVeiculosDisponiveis("automovel", Marca.HONDA.toString(), Categoria.POPULAR.toString(), 3);
         for (Veiculo veiculo : lista) {
             int index = lista.indexOf(veiculo) + 1;
-            Automovel auto = (Automovel) veiculo;
-            auto.getModelo();
-            System.out.println("Veiculo " + index + " = " + veiculo.getPlaca() + " " + veiculo.getMarca().toString());
+            int tipo = veiculoDao.descobreTipo(veiculo.getId());
+            String modelo = "";
+            switch (tipo){
+                case 1:
+                    Automovel auto = (Automovel) veiculo;
+                    modelo = auto.getModelo().toString();
+                break;
+                case 2:
+                    Motocicleta moto = (Motocicleta) veiculo;
+                    modelo = moto.getModelo().toString();
+                break;
+                case 3:
+                    Van van = (Van) veiculo;
+                    modelo = van.getModelo().toString();
+            }
+            System.out.println("Veiculo " + index + " = " + veiculo.getPlaca() + " " + veiculo.getMarca().toString() + " "
+                    + modelo + " " + veiculo.getAno() + " " + veiculo.getValorParaVenda());
         }
         System.out.println("Qual veículo vender? ");
         Scanner scn = new Scanner(System.in);
@@ -296,7 +356,7 @@ public class TrabJAVA {
     
     public static void transicao(){
         try {
-            sleep(5000);
+            sleep(2000);
         } catch (InterruptedException ex) {
             Logger.getLogger(TrabJAVA.class.getName()).log(Level.SEVERE, null, ex);
         }
