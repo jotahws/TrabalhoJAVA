@@ -47,6 +47,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         locarVeiculo1 = new InterfacesGraficas.LocarVeiculo();
         venderVeiculo1 = new InterfacesGraficas.VenderVeiculo();
         listarClientes1 = new InterfacesGraficas.ListarClientes();
+        devolverVeiculo1 = new InterfacesGraficas.DevolverVeiculo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,6 +170,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         centro.add(locarVeiculo1, "locarVeiculo");
         centro.add(venderVeiculo1, "venderVeiculo");
         centro.add(listarClientes1, "listaClientes");
+        centro.add(devolverVeiculo1, "devolverVeiculo");
 
         jPanel1.add(centro, java.awt.BorderLayout.CENTER);
 
@@ -261,6 +263,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNovoCliente;
     private javax.swing.JButton btnNovoVeiculo;
     private javax.swing.JPanel centro;
+    private InterfacesGraficas.DevolverVeiculo devolverVeiculo1;
     private javax.swing.JPanel esquerda;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

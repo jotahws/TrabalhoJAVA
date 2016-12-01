@@ -80,52 +80,9 @@ public class ModeloDevolverVeiculo extends AbstractTableModel {
         }
     }
 
-//    @Override
-//    public void setValueAt(Object value, int row, int col) {
-//        try {
-//            Veiculo veiculo = lista.get(row);
-//            switch (col) {
-//                case 0:
-//                    veiculo.setId((Long) value); //if column 0 (code)
-//                    break;
-//                case 1:
-//                    veiculo.setNome((String) value);
-//                    break;
-//                case 2:
-//                    customer.setEmail((String) value);
-//                    break;
-//                case 3:
-//                    Calendar cal = Calendar.getInstance();
-//                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-//                    Date data = format.parse((String) value);
-//                    cal.setTime(data);
-//                    customer.setDataNascimento(cal);
-//                    break;
-//                case 4:
-//                    customer.setEndereco((String) value);
-//                    break;
-//                default:
-//            }
-//            this.fireTableCellUpdated(row, col);
-//        } catch (ParseException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
-//    public boolean removeContato(Contato customer) {
-//        int linha = this.lista.indexOf(customer);
-//        boolean result = this.lista.remove(customer);
-//        this.fireTableRowsDeleted(linha,linha);//update JTable
-//        return result;
-//    }
-//    public void adicionaContato(Contato customer) {
-//        this.lista.add(customer);
-//        //this.fireTableDataChanged();
-//        this.fireTableRowsInserted(lista.size()-1,lista.size()-1);//update JTable
-//    }
     public void setListaVeiculos(List<Veiculo> veiculos) {
         this.lista = veiculos;
         this.fireTableDataChanged();
-        //this.fireTableRowsInserted(0,contatos.size()-1);//update JTable
     }
 
     public void limpaTabela() {

@@ -35,7 +35,7 @@ public class ClienteDAO {
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
 
-    public void inserirCliente(Cliente cliente){
+    public void inserirCliente(Cliente cliente) {
         Endereco endereco = cliente.getEndereco();
         EnderecoDAO enderecodao = new EnderecoDAO();
         enderecodao.inserirEndereco(endereco);
@@ -65,7 +65,7 @@ public class ClienteDAO {
         }
     }
 
-    public void atualizarCliente(int id, Cliente cliente){
+    public void atualizarCliente(int id, Cliente cliente) {
         try {
             Endereco endereco = cliente.getEndereco();
             EnderecoDAO enderecodao = new EnderecoDAO();
@@ -79,20 +79,19 @@ public class ClienteDAO {
             stmt.setInt(5, id);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Erro ao atualizar cliente: " +ex.getMessage());
-        } finally{
+            System.out.println("Erro ao atualizar cliente: " + ex.getMessage());
+        } finally {
             try {
                 con.close();
                 stmt.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar parâmetros: " +ex.getMessage());
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
-        
-        
+
     }
-    
-    public Cliente buscaCliente(int id){
+
+    public Cliente buscaCliente(int id) {
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(searchCliente);
@@ -122,14 +121,14 @@ public class ClienteDAO {
         }
         return null;
     }
-    
-    public List<Cliente> listaClientes(){
+
+    public List<Cliente> listaClientes() {
         try {
             List<Cliente> lista = new ArrayList();
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(listCliente);
             rs = stmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("idcliente");
                 String nome = rs.getString("nome");
                 String sobrenome = rs.getString("sobrenome");
@@ -145,42 +144,37 @@ public class ClienteDAO {
             return lista;
         } catch (SQLException ex) {
             System.out.println("Erro ao listar clientes: " + ex.getMessage());
-        } finally{           
+        } finally {
             try {
                 con.close();
                 stmt.close();
                 rs.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar parâmetros: " +ex.getMessage());
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
         return null;
     }
-    
-    public void excluirCliente(int id){
+
+    public void excluirCliente(int id) {
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(deleteCliente);
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            try {
-                System.out.println("Não foi possível excluir o cliente pois o mesmo tem locações pendentes.");
-                System.in.read();
-            } catch (IOException ex1) {
-                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        } finally{
+            throw new RuntimeException();
+        } finally {
             try {
                 con.close();
                 stmt.close();
             } catch (SQLException ex) {
-            System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
+                System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
     }
-    
-    public List<Cliente> buscaClientePorNome(String nome, String sobrenome, String cpf){
+
+    public List<Cliente> buscaClientePorNome(String nome, String sobrenome, String cpf) {
         try {
             List<Cliente> lista = new ArrayList();
             con = new ConnectionFactory().getConnection();
@@ -189,7 +183,7 @@ public class ClienteDAO {
             stmt.setString(2, sobrenome);
             stmt.setString(3, cpf);
             rs = stmt.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("idcliente");
                 String nomeC = rs.getString("nome");
                 String sobrenomeC = rs.getString("sobrenome");
@@ -205,7 +199,7 @@ public class ClienteDAO {
             return lista;
         } catch (SQLException ex) {
             System.out.println("Erro ao buscar cliente: " + ex.getMessage());
-        }finally{
+        } finally {
             try {
                 con.close();
                 stmt.close();

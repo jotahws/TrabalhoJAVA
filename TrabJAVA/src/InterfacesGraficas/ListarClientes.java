@@ -105,21 +105,25 @@ public class ListarClientes extends javax.swing.JPanel {
         // TODO add your handling code here:
         tblClientes.getSelectedRow();
         Cliente cliente = modeloTabela.getSelecionado(tblClientes.getSelectedRow());
-        ClienteDAO cDao = new ClienteDAO();
-        cDao.excluirCliente(cliente.getId());
-        listarTabela();
+        try {
+            ClienteDAO cDao = new ClienteDAO();
+            cDao.excluirCliente(cliente.getId());
+            listarTabela();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir cliente\n É necessario devolver o veículo relacionado a ele.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_apagarClienteActionPerformed
 
-    public void listarTabela(){
+    public void listarTabela() {
         try {
             ClienteDAO Cdao = new ClienteDAO();
             List<Cliente> listaC = Cdao.listaClientes();
             modeloTabela.setListaClientes(listaC);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao listar Clientes.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton apagarCliente;
     private javax.swing.JPanel jPanel1;

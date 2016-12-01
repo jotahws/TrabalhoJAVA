@@ -279,7 +279,7 @@ public class LocarVeiculo extends javax.swing.JPanel {
                 List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), comboMarca.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString(), 1);
                 modeloTabela.setListaVeiculos(listaV);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao listar Veículos.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else if (comboCategoria.getSelectedItem() != "-Selecione-" && comboMarca.getSelectedItem() == "-Selecione-") {
             System.out.println("if 2");
@@ -288,7 +288,7 @@ public class LocarVeiculo extends javax.swing.JPanel {
                 List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), null, comboCategoria.getSelectedItem().toString(), 3);
                 modeloTabela.setListaVeiculos(listaV);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao listar Veículos.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else if (comboCategoria.getSelectedItem() == "-Selecione-" && comboMarca.getSelectedItem() != "-Selecione-") {
             System.out.println("if 3");
@@ -297,7 +297,7 @@ public class LocarVeiculo extends javax.swing.JPanel {
                 List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), comboMarca.getSelectedItem().toString(), null, 2);
                 modeloTabela.setListaVeiculos(listaV);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao listar Veículos.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             System.out.println("if 4");
@@ -306,7 +306,7 @@ public class LocarVeiculo extends javax.swing.JPanel {
                 List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), null, null, 4);
                 modeloTabela.setListaVeiculos(listaV);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro ao listar Veículos.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnFiltroActionPerformed

@@ -69,7 +69,7 @@ public class VeiculoDAO {
                 veiculo.setId(veiculoID);
             }
         } catch (SQLException ex) {
-            System.out.println("Erro ao inserir Veículo: " + ex.getMessage());
+            throw new RuntimeException();
         } finally {
             try {
                 stmt.close();
@@ -140,7 +140,7 @@ public class VeiculoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-                System.out.println("Erro: " + ex.getMessage());
+            throw new RuntimeException();
         } finally{
             try {
                 stmt.close();
@@ -150,7 +150,6 @@ public class VeiculoDAO {
                 System.out.println("Erro no encerramento dos parâmetros: " + ex.getMessage());
             }
         }
-        return null;
     }
     
     public List<Veiculo> listaVeiculosDisponiveis(String tipoB, String marcaB, String categoriaB, int opt) {
@@ -211,7 +210,8 @@ public class VeiculoDAO {
             }
             return lista;
         } catch (SQLException ex) {
-            System.out.println("Erro ao lista veículos Disponíveis " + ex.getMessage());
+            throw new RuntimeException();
+//            System.out.println("Erro ao lista veículos Disponíveis " + ex.getMessage());
         } finally {
             try {
                 stmt.close();
@@ -220,7 +220,6 @@ public class VeiculoDAO {
                 System.out.println("Erro ao fechar parâmetros" + ex.getMessage());
             }
         }
-        return null;
     }
 
     public void atualizaEstado(String Estado, int id) {
@@ -231,7 +230,7 @@ public class VeiculoDAO {
             stmt.setInt(2, id);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Erro ao atualizar estado do Veículo: " + ex.getMessage());
+            throw new RuntimeException();
         } finally {
             try {
                 con.close();
