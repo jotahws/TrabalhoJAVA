@@ -38,14 +38,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnLocarVeiculo = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         centro = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         novoCliente1 = new InterfacesGraficas.NovoCliente();
         novoVeiculo2 = new InterfacesGraficas.NovoVeiculo();
         locarVeiculo1 = new InterfacesGraficas.LocarVeiculo();
-        devolverVeiculo1 = new InterfacesGraficas.DevolverVeiculo();
         venderVeiculo1 = new InterfacesGraficas.VenderVeiculo();
+        listarClientes1 = new InterfacesGraficas.ListarClientes();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,7 +59,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         topo.setLayout(topoLayout);
         topoLayout.setHorizontalGroup(
             topoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 744, Short.MAX_VALUE)
+            .addGap(0, 725, Short.MAX_VALUE)
         );
         topoLayout.setVerticalGroup(
             topoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,6 +104,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Lista Clientes");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout esquerdaLayout = new javax.swing.GroupLayout(esquerda);
         esquerda.setLayout(esquerdaLayout);
         esquerdaLayout.setHorizontalGroup(
@@ -110,11 +118,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(esquerdaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(esquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLocarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnNovoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(btnNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         esquerdaLayout.setVerticalGroup(
@@ -130,7 +139,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap(277, Short.MAX_VALUE))
         );
 
         jPanel1.add(esquerda, java.awt.BorderLayout.LINE_START);
@@ -145,7 +156,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,8 +167,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         centro.add(novoCliente1, "novoCliente");
         centro.add(novoVeiculo2, "novoVeiculo");
         centro.add(locarVeiculo1, "locarVeiculo");
-        centro.add(devolverVeiculo1, "devolverVeiculo");
         centro.add(venderVeiculo1, "venderVeiculo");
+        centro.add(listarClientes1, "listaClientes");
 
         jPanel1.add(centro, java.awt.BorderLayout.CENTER);
 
@@ -165,11 +176,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
         );
 
         pack();
@@ -203,6 +214,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         CardLayout card = (CardLayout) centro.getLayout();
         card.show(centro, "venderVeiculo");
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) centro.getLayout();
+        card.show(centro, "listaClientes");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,13 +261,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNovoCliente;
     private javax.swing.JButton btnNovoVeiculo;
     private javax.swing.JPanel centro;
-    private InterfacesGraficas.DevolverVeiculo devolverVeiculo1;
     private javax.swing.JPanel esquerda;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private InterfacesGraficas.ListarClientes listarClientes1;
     private InterfacesGraficas.LocarVeiculo locarVeiculo1;
     private InterfacesGraficas.NovoCliente novoCliente1;
     private InterfacesGraficas.NovoVeiculo novoVeiculo1;
