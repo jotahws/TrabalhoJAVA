@@ -7,6 +7,7 @@ package InterfacesGraficas;
 
 import DataAccesObject.VeiculoDAO;
 import ModelosTabela.ModeloDevolverVeiculo;
+import trabjava.Veiculo;
 
 /**
  *
@@ -67,6 +68,11 @@ public class DevolverVeiculo extends javax.swing.JPanel {
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         btnDevolver.setText("Devolver Veículo");
+        btnDevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDevolverActionPerformed(evt);
+            }
+        });
 
         tblDevolver.setModel(modeloTabela);
         jScrollPane1.setViewportView(tblDevolver);
@@ -95,6 +101,12 @@ public class DevolverVeiculo extends javax.swing.JPanel {
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
+        // TODO add your handling code here:
+        Veiculo veiculo = modeloTabela.getVeiculo(tblDevolver.getSelectedRow());
+        veiculo.devolver();
+    }//GEN-LAST:event_btnDevolverActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
