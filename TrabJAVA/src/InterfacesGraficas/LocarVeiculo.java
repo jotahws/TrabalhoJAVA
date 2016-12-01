@@ -255,7 +255,10 @@ public class LocarVeiculo extends javax.swing.JPanel {
         Veiculo veiculo = modeloTabela.getSelecionado(tblLocar.getSelectedRow());
         LocacaoDAO Ldao = new LocacaoDAO();
         ClienteDAO cDao = new ClienteDAO();
-        List<Cliente> listaCliente = cDao.buscaClientePorNome(txtCliente.getText(), txtSobrenome.getText(), txtCPF.getText());
+        String nome = txtCliente.getText();
+        String sobrenome = txtSobrenome.getText();
+        String CPF = txtCPF.getText();
+        List<Cliente> listaCliente = cDao.buscaClientePorNome(nome, sobrenome, CPF);
         Cliente cliente = listaCliente.get(0);
         String[] diasSeparados = txtData.toString().split("/");
         int[] diasInt = {1,2,3};

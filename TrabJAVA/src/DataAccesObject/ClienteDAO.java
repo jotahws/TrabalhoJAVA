@@ -6,6 +6,7 @@
 package DataAccesObject;
 
 import Conexao.ConnectionFactory;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -163,7 +164,12 @@ public class ClienteDAO {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Erro ao excluir cliente: " + ex.getMessage());
+            try {
+                System.out.println("Não foi possível excluir o cliente pois o mesmo tem locações pendentes.");
+                System.in.read();
+            } catch (IOException ex1) {
+                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         } finally{
             try {
                 con.close();
