@@ -10,7 +10,7 @@ package trabjava;
  * @author JotaWind
  */
 public enum Marca {
-    VW("VOLKSWAGEN"),
+    VOLKSWAGEN("VOLKSWAGEN"),
     CHEVROLET("CHEVROLET"),
     FIAT("FIAT"),
     HONDA("HONDA"),

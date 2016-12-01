@@ -35,7 +35,7 @@ public class NovoVeiculo extends javax.swing.JPanel {
         comboMarca.addItem(Marca.HONDA.toString());
         comboMarca.addItem(Marca.HYUNDAI.toString());
         comboMarca.addItem(Marca.RENAULT.toString());
-        comboMarca.addItem(Marca.VW.toString());
+        comboMarca.addItem(Marca.VOLKSWAGEN.toString());
 
         comboEstado.addItem(Estado.DISPONIVEL.toString());
         comboEstado.addItem(Estado.LOCADO.toString());

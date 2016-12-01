@@ -38,7 +38,7 @@ public class LocarVeiculo extends javax.swing.JPanel {
         comboMarca.addItem(Marca.HONDA.toString());
         comboMarca.addItem(Marca.HYUNDAI.toString());
         comboMarca.addItem(Marca.RENAULT.toString());
-        comboMarca.addItem(Marca.VW.toString());
+        comboMarca.addItem(Marca.VOLKSWAGEN.toString());
 
         comboCategoria.addItem(Categoria.INTERMEDIARIO.toString());
         comboCategoria.addItem(Categoria.LUXO.toString());
@@ -219,8 +219,8 @@ public class LocarVeiculo extends javax.swing.JPanel {
     private void btnLocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocarActionPerformed
         Veiculo veiculo = modeloTabela.getSelecionado(tblLocar.getSelectedRow());
         LocacaoDAO Ldao = new LocacaoDAO();
-        Locacao locacao = new Locacao(txtDias.getText(), veiculo.getValorDiariaLocacao(), );
-        Ldao.inserirLocacao(locacao, veiculo);
+//        Locacao locacao = new Locacao(txtDias.getText(), veiculo.getValorDiariaLocacao(), );
+//        Ldao.inserirLocacao(locacao, veiculo);
     }//GEN-LAST:event_btnLocarActionPerformed
 
     private void btnFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltroActionPerformed

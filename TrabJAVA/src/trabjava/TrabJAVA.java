@@ -19,6 +19,7 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.IOException;
 
 /**
  *
@@ -33,44 +34,49 @@ public class TrabJAVA {
     
     public static void main(String[] args) {
         do{
-            System.out.println("1-Listar clientes\n"
-                    + "2-Atualizar dados de cliente\n"
-                    + "3-Excluir cliente\n"
-                    + "4-Incluir cliente\n"
-                    + "5-Incluir veículo\n"
-                    + "6-Locar veiculo\n"
-                    + "7-Devolver veiculo\n"
-                    + "8-Vender Veiculo\n"
-                    + "9-Sair");
-            Scanner scn = new Scanner(System.in);
-            opc = scn.nextInt();
-            switch (opc) {
-                case 1:
-                    listaClientes();
-                    break;
-                case 2:
-                    atualizarCliente();
-                    break;
-                case 3:
-                    excluirCliente();
-                    break;
-                case 4:
-                    inserirCliente();
-                    break;
-                case 5:
-                    inserirVeiculo();
-                    break;
-                case 6:
-                    locarVeiculo();
-                    break;
-                case 7:
-                    devolverVeiculo();
-                    break;
-                case 8:
-                    venderVeiculo();
-                    break;
+            try {
+                System.out.println("1-Listar clientes\n"
+                        + "2-Atualizar dados de cliente\n"
+                        + "3-Excluir cliente\n"
+                        + "4-Incluir cliente\n"
+                        + "5-Incluir veículo\n"
+                        + "6-Locar veiculo\n"
+                        + "7-Devolver veiculo\n"
+                        + "8-Vender Veiculo\n"
+                        + "9-Sair");
+                Scanner scn = new Scanner(System.in);
+                opc = scn.nextInt();
+                switch (opc) {
+                    case 1:
+                        listaClientes();
+                        System.in.read();
+                        break;
+                    case 2:
+                        atualizarCliente();
+                        break;
+                    case 3:
+                        excluirCliente();
+                        break;
+                    case 4:
+                        inserirCliente();
+                        break;
+                    case 5:
+                        inserirVeiculo();
+                        break;
+                    case 6:
+                        locarVeiculo();
+                        break;
+                    case 7:
+                        devolverVeiculo();
+                        break;
+                    case 8:
+                        venderVeiculo();
+                        break;
+                }
+                transicao();
+            } catch (IOException ex) {
+                Logger.getLogger(TrabJAVA.class.getName()).log(Level.SEVERE, null, ex);
             }
-            transicao();
         }while(opc<9);
     }
     
@@ -311,8 +317,23 @@ public class TrabJAVA {
         List<Veiculo> lista = veiculoDao.listaVeiculoLocados();
         for (Veiculo veiculo : lista) {
             int index = lista.indexOf(veiculo) + 1;
+            int tipo = veiculoDao.descobreTipo(veiculo.getId());
+            String modelo = "";
+            switch (tipo){
+                case 1:
+                    Automovel auto = (Automovel) veiculo;
+                    modelo = auto.getModelo().toString();
+                break;
+                case 2:
+                    Motocicleta moto = (Motocicleta) veiculo;
+                    modelo = moto.getModelo().toString();
+                break;
+                case 3:
+                    Van van = (Van) veiculo;
+                    modelo = van.getModelo().toString();
+            }
             System.out.println("Veiculo " + index + " = Cliente: " + veiculo.getLocacao().getCliente().getNome() + " Placa: "
-                    + veiculo.getPlaca() + " Marca: " + veiculo.getMarca().toString() + " Modelo: Não sei botá Ano: " 
+                    + veiculo.getPlaca() + " Marca: " + veiculo.getMarca().toString() + " Modelo: " + modelo+ " Ano: " 
                     + veiculo.getAno() + " Data Locação: " + veiculo.getLocacao().getData().getCalendarType() + " Preço Diária: "
                     + veiculo.getValorDiariaLocacao() + " Quantidade de dias locado: " + veiculo.getLocacao().getDias() +
                     " Valor Locação: " + veiculo.getLocacao().getValor());
