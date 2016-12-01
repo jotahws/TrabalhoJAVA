@@ -14,7 +14,8 @@ import java.util.List;
 import trabjava.Categoria;
 import trabjava.Marca;
 import trabjava.Veiculo;
-
+import trabjava.Locacao;
+import DataAccesObject.LocacaoDAO;
 /**
  *
  * @author JotaWind
@@ -53,6 +54,8 @@ public class LocarVeiculo extends javax.swing.JPanel {
         panFields = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLocar = new javax.swing.JTable();
+        btnLocar = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -84,28 +87,59 @@ public class LocarVeiculo extends javax.swing.JPanel {
         tblLocar.setModel(modeloTabela);
         jScrollPane1.setViewportView(tblLocar);
 
+        btnLocar.setText("Locar");
+        btnLocar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLocarActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout panFieldsLayout = new javax.swing.GroupLayout(panFields);
         panFields.setLayout(panFieldsLayout);
         panFieldsLayout.setHorizontalGroup(
             panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFieldsLayout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+            .addGroup(panFieldsLayout.createSequentialGroup()
+                .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panFieldsLayout.createSequentialGroup()
+                        .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panFieldsLayout.createSequentialGroup()
+                                .addGap(454, 454, 454)
+                                .addComponent(btnLocar))
+                            .addGroup(panFieldsLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 59, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panFieldsLayout.setVerticalGroup(
             panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panFieldsLayout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addComponent(btnLocar)
+                .addGap(15, 15, 15))
         );
 
         add(panFields, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnLocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocarActionPerformed
+        // TODO add your handling code here:
+        Veiculo veiculo = modeloTabela.getSelecionado(tblLocar.getSelectedRow());
+        LocacaoDAO Ldao = new LocacaoDAO();
+//        Locacao locacao = new Locacao();
+//        Ldao.inserirLocacao(locacao, veiculo);
+    }//GEN-LAST:event_btnLocarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLocar;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel panFields;

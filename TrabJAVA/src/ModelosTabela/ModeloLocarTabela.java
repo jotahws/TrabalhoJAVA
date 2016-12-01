@@ -13,20 +13,23 @@ import trabjava.Categoria;
 import trabjava.Marca;
 import trabjava.Veiculo;
 import DataAccesObject.VeiculoDAO;
+import java.text.SimpleDateFormat;
 
 public class ModeloLocarTabela extends AbstractTableModel {
 
     private String[] colunas = new String[]{"Placa", "Marca", "Modelo", "Ano", "Preço Diária"};
-    private List<Veiculo> listaVeiculos = new ArrayList();
+    private List<Veiculo> lista = new ArrayList();
 
-    public ModeloLocarTabela() {
-        VeiculoDAO veiculoDao = new VeiculoDAO();
-
+    public ModeloLocarTabela(List<Veiculo> lista) {
+        this.lista = lista;
     }
 
+    public ModeloLocarTabela() {
+    }
+    
     @Override
     public int getRowCount() {
-        return this.listaVeiculos.size();
+        return this.lista.size();
     }
 
     @Override
@@ -35,15 +38,34 @@ public class ModeloLocarTabela extends AbstractTableModel {
     }
 
     @Override
+    public String getColumnName(int index) {
+        return this.colunas[index];
+    }
+
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return false;
+        //if(column==0)
+        //return false;
+        //return true;
+    }
+
+    public Veiculo getSelecionado(int row){
+        return lista.get(row);
+    }
+    
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Veiculo veiculo = listaVeiculos.get(rowIndex);
+        Veiculo veiculo = lista.get(rowIndex);
+        Automovel auto = (Automovel) veiculo;
+        String stringModelo =  auto.getModelo().toString();
         switch (columnIndex) {
             case 0:
-                return veiculo.getPlaca().toString();//if column 0 (code)
+                return veiculo.getPlaca();//if column 1 (name)
             case 1:
-                return veiculo.getMarca().toString();//if column 1 (name)
+                return veiculo.getMarca().toString();//if column 2 (birthday)
             case 2:
-                return "olá";
+                return stringModelo;
             case 3:
                 return veiculo.getAno();
             case 4:
@@ -55,53 +77,64 @@ public class ModeloLocarTabela extends AbstractTableModel {
 
 //    @Override
 //    public void setValueAt(Object value, int row, int col) {
-////        Autor autor = listaAutor.get(row);
-//        Veiculo veiculo = listaVeiculos.get(row);
-//        switch (col) {
-//            case 0:
-////                autor.setId((int) value); //if column 0 (code)
-//                veiculo.setPlaca();
-//                break;
-//            case 1:
-//                veiculo.setNome((String) value);
-//                break;
-//            default:
+//        try {
+//            Veiculo veiculo = lista.get(row);
+//            switch (col) {
+//                case 0:
+//                    veiculo.setId((Long) value); //if column 0 (code)
+//                    break;
+//                case 1:
+//                    veiculo.setNome((String) value);
+//                    break;
+//                case 2:
+//                    customer.setEmail((String) value);
+//                    break;
+//                case 3:
+//                    Calendar cal = Calendar.getInstance();
+//                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//                    Date data = format.parse((String) value);
+//                    cal.setTime(data);
+//                    customer.setDataNascimento(cal);
+//                    break;
+//                case 4:
+//                    customer.setEndereco((String) value);
+//                    break;
+//                default:
+//            }
+//            this.fireTableCellUpdated(row, col);
+//        } catch (ParseException ex) {
+//            ex.printStackTrace();
 //        }
-//        this.fireTableCellUpdated(row, col);
 //    }
-    @Override
-    public boolean isCellEditable(int row, int column) {
-//        return column == 2;
-        //if(column==0)
-        return false;
-        //return true;
+//    public boolean removeContato(Contato customer) {
+//        int linha = this.lista.indexOf(customer);
+//        boolean result = this.lista.remove(customer);
+//        this.fireTableRowsDeleted(linha,linha);//update JTable
+//        return result;
+//    }
+//    public void adicionaContato(Contato customer) {
+//        this.lista.add(customer);
+//        //this.fireTableDataChanged();
+//        this.fireTableRowsInserted(lista.size()-1,lista.size()-1);//update JTable
+//    }
+    
+    public void setListaVeiculos(List<Veiculo> veiculos) {
+        this.lista = veiculos;
+        this.fireTableDataChanged();
+        //this.fireTableRowsInserted(0,contatos.size()-1);//update JTable
     }
 
-    @Override
-    public String getColumnName(int index) {
-        return this.colunas[index];
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        Class clazz = String.class;
-        switch (columnIndex) {
-            case 0:
-                clazz = Integer.class;
-                break;
-            case 1:
-                clazz = String.class;
-                break;
-            case 2:
-                clazz = Boolean.class;
-                break;
+    public void limpaTabela() {
+        int indice = lista.size() - 1;
+        if (indice < 0) {
+            indice = 0;
         }
-        return clazz;
+        this.lista = new ArrayList();
+        this.fireTableRowsDeleted(0, indice);//update JTable
     }
 
-    public void setListaVeiculos(List<Veiculo> listaVeiculosDisponiveis) {
-        this.listaVeiculos = listaVeiculosDisponiveis;
-        fireTableDataChanged();
+    public Veiculo getVeiculo(int linha) {
+        return lista.get(linha);
     }
 
 }
