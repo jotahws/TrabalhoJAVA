@@ -16,6 +16,7 @@ import trabjava.Marca;
 import trabjava.Veiculo;
 import trabjava.Locacao;
 import DataAccesObject.LocacaoDAO;
+
 /**
  *
  * @author JotaWind
@@ -31,13 +32,17 @@ public class LocarVeiculo extends javax.swing.JPanel {
         modeloTabela = new ModeloLocarTabela();
         initComponents();
         this.tblLocar.setModel(modeloTabela);
-        try {
-            VeiculoDAO dao = new VeiculoDAO();
-            List<Veiculo> listaV = dao.listaVeiculosDisponiveis("automovel", null, null, 4);
-            modeloTabela.setListaVeiculos(listaV);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+
+        comboMarca.addItem(Marca.CHEVROLET.toString());
+        comboMarca.addItem(Marca.FIAT.toString());
+        comboMarca.addItem(Marca.HONDA.toString());
+        comboMarca.addItem(Marca.HYUNDAI.toString());
+        comboMarca.addItem(Marca.RENAULT.toString());
+        comboMarca.addItem(Marca.VW.toString());
+
+        comboCategoria.addItem(Categoria.INTERMEDIARIO.toString());
+        comboCategoria.addItem(Categoria.LUXO.toString());
+        comboCategoria.addItem(Categoria.POPULAR.toString());
     }
 
     /**
@@ -55,7 +60,19 @@ public class LocarVeiculo extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLocar = new javax.swing.JTable();
         btnLocar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboTipo = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        comboMarca = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        comboCategoria = new javax.swing.JComboBox<>();
+        btnFiltro = new javax.swing.JButton();
+        txtDias = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtData = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtCliente = new javax.swing.JTextField();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -94,7 +111,36 @@ public class LocarVeiculo extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "automovel", "motocicleta", "van" }));
+
+        jLabel1.setText("Tipo:");
+
+        jLabel2.setText("Marca:");
+
+        comboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Selecione-" }));
+
+        jLabel3.setText("Categoria:");
+
+        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Selecione-" }));
+
+        btnFiltro.setText("Ok");
+        btnFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltroActionPerformed(evt);
+            }
+        });
+
+        txtDias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDiasActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Numero de Dias de Locação");
+
+        jLabel5.setText("Data:");
+
+        jLabel6.setText("Nome, sobrenome ou CPF do Cliente:");
 
         javax.swing.GroupLayout panFieldsLayout = new javax.swing.GroupLayout(panFields);
         panFields.setLayout(panFieldsLayout);
@@ -102,48 +148,148 @@ public class LocarVeiculo extends javax.swing.JPanel {
             panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panFieldsLayout.createSequentialGroup()
                 .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
                     .addGroup(panFieldsLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panFieldsLayout.createSequentialGroup()
-                                .addGap(454, 454, 454)
-                                .addComponent(btnLocar))
+                                .addComponent(jLabel1)
+                                .addGap(3, 3, 3)
+                                .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panFieldsLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 59, Short.MAX_VALUE)))
+                                .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnLocar)
+                                    .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(panFieldsLayout.createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addGap(3, 3, 3)
+                                            .addComponent(txtDias, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(panFieldsLayout.createSequentialGroup()
+                                            .addComponent(jLabel6)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtCliente))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         panFieldsLayout.setVerticalGroup(
             panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panFieldsLayout.createSequentialGroup()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFiltro))
+                .addGap(1, 1, 1)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLocar)
-                .addGap(15, 15, 15))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         add(panFields, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocarActionPerformed
-        // TODO add your handling code here:
         Veiculo veiculo = modeloTabela.getSelecionado(tblLocar.getSelectedRow());
         LocacaoDAO Ldao = new LocacaoDAO();
-//        Locacao locacao = new Locacao();
-//        Ldao.inserirLocacao(locacao, veiculo);
+        Locacao locacao = new Locacao(txtDias.getText(), veiculo.getValorDiariaLocacao(), );
+        Ldao.inserirLocacao(locacao, veiculo);
     }//GEN-LAST:event_btnLocarActionPerformed
 
+    private void btnFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltroActionPerformed
+        if (comboCategoria.getSelectedItem() != "-Selecione-" && comboMarca.getSelectedItem() != "-Selecione-") {
+            System.out.println("if 1");
+            try {
+                VeiculoDAO dao = new VeiculoDAO();
+                List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), comboMarca.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString(), 1);
+                modeloTabela.setListaVeiculos(listaV);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (comboCategoria.getSelectedItem() != "-Selecione-" && comboMarca.getSelectedItem() == "-Selecione-") {
+            System.out.println("if 2");
+            try {
+                VeiculoDAO dao = new VeiculoDAO();
+                List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), null, comboCategoria.getSelectedItem().toString(), 3);
+                modeloTabela.setListaVeiculos(listaV);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (comboCategoria.getSelectedItem() == "-Selecione-" && comboMarca.getSelectedItem() != "-Selecione-") {
+            System.out.println("if 3");
+            try {
+                VeiculoDAO dao = new VeiculoDAO();
+                List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), comboMarca.getSelectedItem().toString(), null, 2);
+                modeloTabela.setListaVeiculos(listaV);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            System.out.println("if 4");
+            try {
+                VeiculoDAO dao = new VeiculoDAO();
+                List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), null, null, 4);
+                modeloTabela.setListaVeiculos(listaV);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnFiltroActionPerformed
+
+    private void txtDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDiasActionPerformed
+
+    public String getComboTipo(){
+        return comboTipo.getSelectedItem().toString();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFiltro;
     private javax.swing.JButton btnLocar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> comboCategoria;
+    private javax.swing.JComboBox<String> comboMarca;
+    private javax.swing.JComboBox<String> comboTipo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel panFields;
     private javax.swing.JPanel panTitulo;
     private javax.swing.JTable tblLocar;
+    private javax.swing.JTextField txtCliente;
+    private javax.swing.JTextField txtData;
+    private javax.swing.JTextField txtDias;
     // End of variables declaration//GEN-END:variables
 }

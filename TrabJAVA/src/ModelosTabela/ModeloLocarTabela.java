@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import trabjava.Automovel;
+import trabjava.Motocicleta;
+import trabjava.Van;
 import trabjava.Categoria;
 import trabjava.Marca;
 import trabjava.Veiculo;
 import DataAccesObject.VeiculoDAO;
 import java.text.SimpleDateFormat;
+import InterfacesGraficas.LocarVeiculo;
 
 public class ModeloLocarTabela extends AbstractTableModel {
 
@@ -26,7 +29,7 @@ public class ModeloLocarTabela extends AbstractTableModel {
 
     public ModeloLocarTabela() {
     }
-    
+
     @Override
     public int getRowCount() {
         return this.lista.size();
@@ -50,15 +53,25 @@ public class ModeloLocarTabela extends AbstractTableModel {
         //return true;
     }
 
-    public Veiculo getSelecionado(int row){
+    public Veiculo getSelecionado(int row) {
         return lista.get(row);
     }
-    
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Veiculo veiculo = lista.get(rowIndex);
-        Automovel auto = (Automovel) veiculo;
-        String stringModelo =  auto.getModelo().toString();
+        LocarVeiculo locarInterf = new LocarVeiculo();
+        String stringModelo;
+        if (locarInterf.getComboTipo() == "automovel") {
+            Automovel auto = (Automovel) veiculo;
+            stringModelo = auto.getModelo().toString();
+        } else if (locarInterf.getComboTipo() == "motocicleta") {
+            Motocicleta moto = (Motocicleta) veiculo;
+            stringModelo = moto.getModelo().toString();
+        } else {
+            Van van = (Van) veiculo;
+            stringModelo = van.getModelo().toString();
+        }
         switch (columnIndex) {
             case 0:
                 return veiculo.getPlaca();//if column 1 (name)
@@ -74,50 +87,49 @@ public class ModeloLocarTabela extends AbstractTableModel {
                 return null;
         }
     }
+    //    @Override
+    //    public void setValueAt(Object value, int row, int col) {
+    //        try {
+    //            Veiculo veiculo = lista.get(row);
+    //            switch (col) {
+    //                case 0:
+    //                    veiculo.setId((Long) value); //if column 0 (code)
+    //                    break;
+    //                case 1:
+    //                    veiculo.setNome((String) value);
+    //                    break;
+    //                case 2:
+    //                    customer.setEmail((String) value);
+    //                    break;
+    //                case 3:
+    //                    Calendar cal = Calendar.getInstance();
+    //                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    //                    Date data = format.parse((String) value);
+    //                    cal.setTime(data);
+    //                    customer.setDataNascimento(cal);
+    //                    break;
+    //                case 4:
+    //                    customer.setEndereco((String) value);
+    //                    break;
+    //                default:
+    //            }
+    //            this.fireTableCellUpdated(row, col);
+    //        } catch (ParseException ex) {
+    //            ex.printStackTrace();
+    //        }
+    //    }
+    //    public boolean removeContato(Contato customer) {
+    //        int linha = this.lista.indexOf(customer);
+    //        boolean result = this.lista.remove(customer);
+    //        this.fireTableRowsDeleted(linha,linha);//update JTable
+    //        return result;
+    //    }
+    //    public void adicionaContato(Contato customer) {
+    //        this.lista.add(customer);
+    //        //this.fireTableDataChanged();
+    //        this.fireTableRowsInserted(lista.size()-1,lista.size()-1);//update JTable
+    //    }
 
-//    @Override
-//    public void setValueAt(Object value, int row, int col) {
-//        try {
-//            Veiculo veiculo = lista.get(row);
-//            switch (col) {
-//                case 0:
-//                    veiculo.setId((Long) value); //if column 0 (code)
-//                    break;
-//                case 1:
-//                    veiculo.setNome((String) value);
-//                    break;
-//                case 2:
-//                    customer.setEmail((String) value);
-//                    break;
-//                case 3:
-//                    Calendar cal = Calendar.getInstance();
-//                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-//                    Date data = format.parse((String) value);
-//                    cal.setTime(data);
-//                    customer.setDataNascimento(cal);
-//                    break;
-//                case 4:
-//                    customer.setEndereco((String) value);
-//                    break;
-//                default:
-//            }
-//            this.fireTableCellUpdated(row, col);
-//        } catch (ParseException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
-//    public boolean removeContato(Contato customer) {
-//        int linha = this.lista.indexOf(customer);
-//        boolean result = this.lista.remove(customer);
-//        this.fireTableRowsDeleted(linha,linha);//update JTable
-//        return result;
-//    }
-//    public void adicionaContato(Contato customer) {
-//        this.lista.add(customer);
-//        //this.fireTableDataChanged();
-//        this.fireTableRowsInserted(lista.size()-1,lista.size()-1);//update JTable
-//    }
-    
     public void setListaVeiculos(List<Veiculo> veiculos) {
         this.lista = veiculos;
         this.fireTableDataChanged();
