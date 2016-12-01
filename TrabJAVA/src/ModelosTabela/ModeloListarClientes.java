@@ -71,7 +71,7 @@ public class ModeloListarClientes extends AbstractTableModel {
             case 3:
                 return cliente.getCpf();
             case 4:
-                return cliente.getEndereco().getCidade() + cliente.getEndereco().getBairro() + cliente.getEndereco().getRua() + cliente.getEndereco().getNumero();
+                return cliente.getEndereco().getCidade()+" " + cliente.getEndereco().getBairro()+" " + cliente.getEndereco().getRua()+" " + cliente.getEndereco().getNumero();
             default:
                 return null;
         }

@@ -13,6 +13,10 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import trabjava.Veiculo;
+import trabjava.Automovel;
+import trabjava.Van;
+import trabjava.Motocicleta;
+import DataAccesObject.VeiculoDAO;
 
 /**
  *
@@ -56,6 +60,22 @@ public class ModeloDevolverVeiculo extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Veiculo veiculo = lista.get(rowIndex);
+        VeiculoDAO vDao = new VeiculoDAO();
+        int tipo = vDao.descobreTipo(veiculo.getId());
+        String modelo = "";
+        switch (tipo) {
+            case 1: 
+                Automovel auto = (Automovel) veiculo;
+                modelo = auto.getModelo().toString();
+                break;
+            case 2:
+                Motocicleta moto = (Motocicleta) veiculo;
+                modelo = moto.getModelo().toString();
+                break;
+            case 3:
+                Van van = (Van) veiculo;
+                modelo = van.getModelo().toString();
+        }
         switch (columnIndex) {
             case 0:
                 return veiculo.getLocacao().getCliente().getNome();//if column 0 (code)
@@ -64,11 +84,11 @@ public class ModeloDevolverVeiculo extends AbstractTableModel {
             case 2:
                 return veiculo.getMarca().toString();//if column 2 (birthday)
             case 3:
-                return new SimpleDateFormat("dd/MM/YYYY").format(veiculo.getLocacao().getData().getTime());
+                return modelo;
             case 4:
                 return veiculo.getAno();
             case 5:
-                return veiculo.getLocacao().getData();
+                return new SimpleDateFormat("dd/MM/YYYY").format(veiculo.getLocacao().getData().getTime());
             case 6:
                 return veiculo.getValorDiariaLocacao();
             case 7:
