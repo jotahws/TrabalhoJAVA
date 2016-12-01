@@ -69,7 +69,7 @@ public class TrabJAVA {
         for (Cliente cliente : lista) {
             int index = lista.indexOf(cliente) + 1;
             Endereco endereco = cliente.getEndereco();
-            System.out.println("Cliente " +index+ " = Nome: " +cliente.getNome() + " " + cliente.getSobrenome() +" RG: "
+            System.out.println("Cliente " +index+ " = Nome: " +cliente.getNome() + " " + cliente.getSobrenome() + " RG: "
                     + cliente.getRg() + " CPF: " + cliente.getCpf() + " Rua: " + endereco.getRua() + " Numero: "
                     + endereco.getNumero() + " Complemento: " + endereco.getComplemento() + " Bairro: " + endereco.getBairro()
                     + " Cidade: " + endereco.getCidade());
