@@ -7,6 +7,7 @@ package InterfacesGraficas;
 
 import DataAccesObject.VeiculoDAO;
 import ModelosTabela.ModeloDevolverVeiculo;
+import javax.swing.JOptionPane;
 import trabjava.Veiculo;
 
 /**
@@ -104,8 +105,14 @@ public class DevolverVeiculo extends javax.swing.JPanel {
 
     private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
         // TODO add your handling code here:
-        Veiculo veiculo = modeloTabela.getVeiculo(tblDevolver.getSelectedRow());
-        veiculo.devolver();
+        try {
+            Veiculo veiculo = modeloTabela.getVeiculo(tblDevolver.getSelectedRow());
+            veiculo.devolver();
+            JOptionPane.showMessageDialog(null, "Veículo devolvido com sucesso.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao devolver veículo.", "Erro", JOptionPane.ERROR_MESSAGE);
+
+        }
     }//GEN-LAST:event_btnDevolverActionPerformed
 
 
