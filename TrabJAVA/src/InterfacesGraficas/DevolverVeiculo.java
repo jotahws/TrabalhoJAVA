@@ -9,13 +9,22 @@ package InterfacesGraficas;
  *
  * @author JotaWind
  */
+import DataAccesObject.VeiculoDAO;
+import ModelosTabela.ModeloDevolverVeiculo;
+
 public class DevolverVeiculo extends javax.swing.JPanel {
+
+    private ModeloDevolverVeiculo modeloTabela;
 
     /**
      * Creates new form DevolverVeiclo
      */
     public DevolverVeiculo() {
+        modeloTabela = new ModeloDevolverVeiculo();
         initComponents();
+        tblDevolver.setModel(modeloTabela);
+        VeiculoDAO vDao = new VeiculoDAO();
+        modeloTabela.setListaVeiculos(vDao.listaVeiculoLocados());
     }
 
     /**
@@ -31,6 +40,8 @@ public class DevolverVeiculo extends javax.swing.JPanel {
         panTitulo = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         panFields = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDevolver = new javax.swing.JTable();
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -59,15 +70,33 @@ public class DevolverVeiculo extends javax.swing.JPanel {
 
         panFields.setPreferredSize(new java.awt.Dimension(597, 302));
 
+        tblDevolver.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDevolver);
+
         javax.swing.GroupLayout panFieldsLayout = new javax.swing.GroupLayout(panFields);
         panFields.setLayout(panFieldsLayout);
         panFieldsLayout.setHorizontalGroup(
             panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 597, Short.MAX_VALUE)
+            .addGroup(panFieldsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panFieldsLayout.setVerticalGroup(
             panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 372, Short.MAX_VALUE)
+            .addGroup(panFieldsLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 64, Short.MAX_VALUE))
         );
 
         jPanel1.add(panFields, java.awt.BorderLayout.CENTER);
@@ -85,17 +114,19 @@ public class DevolverVeiculo extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 432, Short.MAX_VALUE)
+            .addGap(0, 468, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel panFields;
     private javax.swing.JPanel panTitulo;
+    private javax.swing.JTable tblDevolver;
     // End of variables declaration//GEN-END:variables
 }

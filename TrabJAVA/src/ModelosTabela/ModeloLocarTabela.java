@@ -19,8 +19,9 @@ public class ModeloLocarTabela extends AbstractTableModel {
     private String[] colunas = new String[]{"Placa", "Marca", "Modelo", "Ano", "Preço Diária"};
     private List<Veiculo> listaVeiculos = new ArrayList();
 
-    public ModeloLocarTabela() throws Exception {
+    public ModeloLocarTabela() {
         VeiculoDAO veiculoDao = new VeiculoDAO();
+
     }
 
     @Override
@@ -38,7 +39,7 @@ public class ModeloLocarTabela extends AbstractTableModel {
         Veiculo veiculo = listaVeiculos.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return veiculo.getPlaca();//if column 0 (code)
+                return veiculo.getPlaca().toString();//if column 0 (code)
             case 1:
                 return veiculo.getMarca().toString();//if column 1 (name)
             case 2:
@@ -68,7 +69,6 @@ public class ModeloLocarTabela extends AbstractTableModel {
 //        }
 //        this.fireTableCellUpdated(row, col);
 //    }
-    
     @Override
     public boolean isCellEditable(int row, int column) {
 //        return column == 2;

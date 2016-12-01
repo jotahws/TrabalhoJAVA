@@ -10,8 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import DataAccesObject.VeiculoDAO;
+import java.util.List;
 import trabjava.Categoria;
 import trabjava.Marca;
+import trabjava.Veiculo;
 
 /**
  *
@@ -25,16 +27,13 @@ public class LocarVeiculo extends javax.swing.JPanel {
      * Creates new form LocarVeiculo
      */
     public LocarVeiculo() {
-        try {
-            modeloTabela = new ModeloLocarTabela();
-        } catch (Exception ex) {
-            throw new RuntimeException("erro ao carregar tabela.");
-        }
+        modeloTabela = new ModeloLocarTabela();
         initComponents();
+        this.tblLocar.setModel(modeloTabela);
         try {
             VeiculoDAO dao = new VeiculoDAO();
-            String tipo = "automovel";
-            modeloTabela.setListaVeiculos(dao.listaVeiculosDisponiveis(tipo, null, null, 4));
+            List<Veiculo> listaV = dao.listaVeiculosDisponiveis("automovel", null, null, 4);
+            modeloTabela.setListaVeiculos(listaV);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
