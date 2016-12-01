@@ -7,13 +7,18 @@ package trabjava;
 
 import DataAccesObject.VeiculoDAO;
 import DataAccesObject.AutomovelDAO;
+import DataAccesObject.MotocicletaDAO;
 import DataAccesObject.ClienteDAO;
 import DataAccesObject.VanDAO;
+import java.io.IOException;
+import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,43 +29,49 @@ public class TrabJAVA {
     /**
      * @param args the command line arguments
      */
+    static int opc;
+    
     public static void main(String[] args) {
-        System.out.println("1-Listar clientes\n"
-                + "2-Atualizar dados de cliente\n"
-                + "3-Excluir cliente\n"
-                + "4-Incluir cliente\n"
-                + "5-Incluir veículo\n"
-                + "6-Locar veiculo\n"
-                + "7-Devolver veiculo\n"
-                + "8-Vender Veiculo\n");
-        Scanner scn = new Scanner(System.in);
-        int opc = scn.nextInt();
-        switch (opc) {
-            case 1:
-                listaClientes();
-                break;
-            case 2:
-                atualizarCliente();
-                break;
-            case 3:
-                excluirCliente();
-                break;
-            case 4:
-                inserirCliente();
-                break;
-            case 5:
-                inserirVeiculo();
-                break;
-            case 6:
-                locarVeiculo();
-                break;
-            case 7:
-                devolverVeiculo();
-                break;
-            case 8:
-                venderVeiculo();
-                break;
-        }
+        do{
+            System.out.println("1-Listar clientes\n"
+                    + "2-Atualizar dados de cliente\n"
+                    + "3-Excluir cliente\n"
+                    + "4-Incluir cliente\n"
+                    + "5-Incluir veículo\n"
+                    + "6-Locar veiculo\n"
+                    + "7-Devolver veiculo\n"
+                    + "8-Vender Veiculo\n"
+                    + "9-Sair");
+            Scanner scn = new Scanner(System.in);
+            opc = scn.nextInt();
+            switch (opc) {
+                case 1:
+                    listaClientes();
+                    break;
+                case 2:
+                    atualizarCliente();
+                    break;
+                case 3:
+                    excluirCliente();
+                    break;
+                case 4:
+                    inserirCliente();
+                    break;
+                case 5:
+                    inserirVeiculo();
+                    break;
+                case 6:
+                    locarVeiculo();
+                    break;
+                case 7:
+                    devolverVeiculo();
+                    break;
+                case 8:
+                    venderVeiculo();
+                    break;
+            }
+            transicao();
+        }while(opc<9);
     }
     
     public static void listaClientes(){
@@ -162,29 +173,71 @@ public class TrabJAVA {
     }
 
     private static void inserirVeiculo() {
-        System.out.println("Inserir Automovel:");
+        System.out.println("Inserir Veículo:");
         Scanner scn = new Scanner(System.in);
+        System.out.println("Tipo: ");
+        System.out.println("1 - Automóvel");
+        System.out.println("2 - Motocicleta");
+        System.out.println("3 - Van");
+        int tipo = scn.nextInt();
         System.out.println("valor compra");
         double valorCompra = scn.nextDouble();
         System.out.println("placa");
         String placa = scn.next();
         System.out.println("ano");
         int ano = scn.nextInt();
-        Veiculo veiculo = new Automovel(ModeloAutomovel.AMGGT, valorCompra, placa, ano, Marca.HYUNDAI, Estado.DISPONIVEL, Categoria.LUXO);
-        AutomovelDAO autoDao = new AutomovelDAO();
-        autoDao.inserirAutomovel((Automovel) veiculo);
-
-        System.out.println("Inserir Van:");
-        scn = new Scanner(System.in);
-        System.out.println("valor compra");
-        valorCompra = scn.nextDouble();
-        System.out.println("placa");
-        placa = scn.next();
-        System.out.println("ano");
-        ano = scn.nextInt();
-        veiculo = new Van(ModeloVan.Ducato, valorCompra, placa, ano, Marca.FIAT, Estado.DISPONIVEL, Categoria.INTERMEDIARIO);
-        VanDAO vanDao = new VanDAO();
-        vanDao.inserirVan((Van) veiculo);
+        System.out.println("Marca: ");
+        System.out.println("1 - "+Marca.values()[0]);
+        System.out.println("2 - "+Marca.values()[1]);
+        System.out.println("3 - "+Marca.values()[2]);
+        System.out.println("4 - "+Marca.values()[3]);
+        System.out.println("5 - "+Marca.values()[4]);
+        System.out.println("6 - "+Marca.values()[5]);
+        String marca = Marca.values()[scn.nextInt()-1].toString();
+        System.out.println("Categoria: ");
+        System.out.println("1 - "+Categoria.values()[0]);
+        System.out.println("2 - "+Categoria.values()[1]);
+        System.out.println("3 - "+Categoria.values()[2]);
+        String categoria = Categoria.values()[scn.nextInt()-1].toString();
+        System.out.println("Modelo: ");
+        switch(tipo){
+            case 1:
+                System.out.println("1 - "+ModeloAutomovel.values()[0]);
+                System.out.println("2 - "+ModeloAutomovel.values()[1]);
+                System.out.println("3 - "+ModeloAutomovel.values()[2]);
+                System.out.println("4 - "+ModeloAutomovel.values()[3]);
+                System.out.println("5 - "+ModeloAutomovel.values()[4]);
+                System.out.println("6 - "+ModeloAutomovel.values()[5]);
+                System.out.println("7 - "+ModeloAutomovel.values()[6]);
+                System.out.println("8 - "+ModeloAutomovel.values()[7]);
+                System.out.println("9 - "+ModeloAutomovel.values()[8]);
+                System.out.println("10 - "+ModeloAutomovel.values()[9]);
+                String modeloA = ModeloAutomovel.values()[scn.nextInt()-1].toString();
+                Veiculo veiculoA = new Automovel(ModeloAutomovel.valueOf(modeloA), valorCompra, placa, ano, Marca.valueOf(marca), Estado.DISPONIVEL, Categoria.valueOf(categoria));
+                AutomovelDAO autoDao = new AutomovelDAO();
+                autoDao.inserirAutomovel((Automovel) veiculoA);
+            break;
+            case 2:
+                System.out.println("1 - "+ModeloMotocicleta.values()[0]);
+                System.out.println("2 - "+ModeloMotocicleta.values()[1]);
+                System.out.println("3 - "+ModeloMotocicleta.values()[2]);
+                System.out.println("4 - "+ModeloMotocicleta.values()[3]);
+                String modeloM = ModeloMotocicleta.values()[scn.nextInt()-1].toString();
+                Veiculo veiculoM = new Motocicleta(ModeloMotocicleta.valueOf(modeloM), valorCompra, placa, ano, Marca.valueOf(marca), Estado.DISPONIVEL, Categoria.valueOf(categoria));
+                MotocicletaDAO motoDao = new MotocicletaDAO();
+                motoDao.inserirMotocicleta((Motocicleta) veiculoM);
+            break;
+            case 3:
+                System.out.println("1 - "+ModeloVan.values()[0]);
+                System.out.println("2 - "+ModeloVan.values()[1]);
+                System.out.println("3 - "+ModeloVan.values()[2]);
+                System.out.println("4 - "+ModeloVan.values()[3]);
+                String modeloV = ModeloVan.values()[scn.nextInt()-1].toString();
+                Veiculo veiculoV = new Van(ModeloVan.valueOf(modeloV), valorCompra, placa, ano, Marca.valueOf(marca), Estado.DISPONIVEL, Categoria.valueOf(categoria));
+                VanDAO vanDao = new VanDAO();
+                vanDao.inserirVan((Van) veiculoV);
+            break;
+        }
     }
 
     public static void locarVeiculo() {
@@ -239,6 +292,14 @@ public class TrabJAVA {
         int indiceVeiculo = scn.nextInt() - 1;
         Veiculo veiculoVender = lista.get(indiceVeiculo);
         veiculoVender.vender();
+    }
+    
+    public static void transicao(){
+        try {
+            sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TrabJAVA.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
