@@ -29,6 +29,7 @@ public class ClienteDAO {
     private final String listCliente = "SELECT * FROM cliente";
     private final String deleteCliente = "DELETE FROM cliente WHERE idcliente=?";
     private final String updateCliente = "UPDATE cliente SET nome=?, sobrenome=?, cpf=?, rg=? WHERE idcliente=?";
+    private final String searchCliente2 = "SELECT * FROM cliente WHERE nome=? OR sobrenome=? OR cpf=?;";
     private Connection con = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
@@ -170,5 +171,42 @@ public class ClienteDAO {
             System.out.println("Erro ao fechar parâmetros: " + ex.getMessage());
             }
         }
+    }
+    
+    public List<Cliente> buscaClientePorNome(String nome, String sobrenome, String cpf){
+        try {
+            List<Cliente> lista = new ArrayList();
+            con = new ConnectionFactory().getConnection();
+            stmt = con.prepareStatement(searchCliente2);
+            stmt.setString(1, nome);
+            stmt.setString(2, sobrenome);
+            stmt.setString(3, cpf);
+            rs = stmt.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("idcliente");
+                String nomeC = rs.getString("nome");
+                String sobrenomeC = rs.getString("sobrenome");
+                String cpfC = rs.getString("cpf");
+                String rgC = rs.getString("rg");
+                int enderecoID = rs.getInt("endereco");
+                EnderecoDAO eDAO = new EnderecoDAO();
+                Endereco endereco = eDAO.buscaEndereco(enderecoID);
+                Cliente cliente = new Cliente(nomeC, sobrenomeC, rgC, cpfC, endereco);
+                cliente.setId(id);
+                lista.add(cliente);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                con.close();
+                stmt.close();
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 }
