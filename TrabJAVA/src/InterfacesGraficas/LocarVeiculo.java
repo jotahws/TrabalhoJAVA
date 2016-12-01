@@ -273,7 +273,6 @@ public class LocarVeiculo extends javax.swing.JPanel {
 
     private void btnFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltroActionPerformed
         if (comboCategoria.getSelectedItem() != "-Selecione-" && comboMarca.getSelectedItem() != "-Selecione-") {
-            System.out.println("if 1");
             try {
                 VeiculoDAO dao = new VeiculoDAO();
                 List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), comboMarca.getSelectedItem().toString(), comboCategoria.getSelectedItem().toString(), 1);
@@ -282,7 +281,6 @@ public class LocarVeiculo extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Erro ao listar Veículos.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else if (comboCategoria.getSelectedItem() != "-Selecione-" && comboMarca.getSelectedItem() == "-Selecione-") {
-            System.out.println("if 2");
             try {
                 VeiculoDAO dao = new VeiculoDAO();
                 List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), null, comboCategoria.getSelectedItem().toString(), 3);
@@ -291,7 +289,6 @@ public class LocarVeiculo extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Erro ao listar Veículos.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else if (comboCategoria.getSelectedItem() == "-Selecione-" && comboMarca.getSelectedItem() != "-Selecione-") {
-            System.out.println("if 3");
             try {
                 VeiculoDAO dao = new VeiculoDAO();
                 List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), comboMarca.getSelectedItem().toString(), null, 2);
@@ -300,7 +297,6 @@ public class LocarVeiculo extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Erro ao listar Veículos.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            System.out.println("if 4");
             try {
                 VeiculoDAO dao = new VeiculoDAO();
                 List<Veiculo> listaV = dao.listaVeiculosDisponiveis(comboTipo.getSelectedItem().toString(), null, null, 4);

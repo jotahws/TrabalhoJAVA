@@ -52,7 +52,7 @@ public class VenderVeiculo extends javax.swing.JPanel {
 
         add(panTitulo, java.awt.BorderLayout.PAGE_START);
 
-        panFields.setPreferredSize(new java.awt.Dimension(597, 302));
+        panFields.setPreferredSize(new java.awt.Dimension(597, 501));
 
         javax.swing.GroupLayout panFieldsLayout = new javax.swing.GroupLayout(panFields);
         panFields.setLayout(panFieldsLayout);
@@ -62,7 +62,7 @@ public class VenderVeiculo extends javax.swing.JPanel {
         );
         panFieldsLayout.setVerticalGroup(
             panFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 366, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
 
         add(panFields, java.awt.BorderLayout.CENTER);

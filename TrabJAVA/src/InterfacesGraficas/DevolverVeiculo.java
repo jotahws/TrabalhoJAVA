@@ -27,6 +27,7 @@ public class DevolverVeiculo extends javax.swing.JPanel {
         this.tblDevolver.setModel(modeloTabela);
         VeiculoDAO vDao = new VeiculoDAO();
         modeloTabela.setListaVeiculos(vDao.listaVeiculoLocados());
+
     }
 
     /**
@@ -38,12 +39,19 @@ public class DevolverVeiculo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblConcuido = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnDevolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDevolver = new javax.swing.JTable();
+        lblConcuido1 = new javax.swing.JLabel();
+
+        lblConcuido.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        lblConcuido.setForeground(new java.awt.Color(0, 102, 51));
+        lblConcuido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblConcuido.setToolTipText("");
 
         setLayout(new java.awt.BorderLayout());
 
