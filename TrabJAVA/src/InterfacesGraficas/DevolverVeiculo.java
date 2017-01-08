@@ -77,14 +77,14 @@ public class DevolverVeiculo extends javax.swing.JPanel {
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         btnDevolver.setText("Devolver Veículo");
-        btnDevolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDevolverActionPerformed(evt);
-            }
-        });
 
         tblDevolver.setModel(modeloTabela);
         jScrollPane1.setViewportView(tblDevolver);
+
+        lblConcuido1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        lblConcuido1.setForeground(new java.awt.Color(0, 102, 51));
+        lblConcuido1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblConcuido1.setToolTipText("");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -96,7 +96,8 @@ public class DevolverVeiculo extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnDevolver)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblConcuido1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -105,7 +106,9 @@ public class DevolverVeiculo extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDevolver)
-                .addGap(0, 76, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblConcuido1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -129,6 +132,8 @@ public class DevolverVeiculo extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblConcuido;
+    private javax.swing.JLabel lblConcuido1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tblDevolver;
     // End of variables declaration//GEN-END:variables
