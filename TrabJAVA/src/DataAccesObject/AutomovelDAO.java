@@ -52,19 +52,19 @@ public class AutomovelDAO {
             }
         }
     }
-    
-    public boolean isAuto(int idveiculo){
+
+    public boolean isAuto(int idveiculo) {
         try {
             con = new ConnectionFactory().getConnection();
             stmt = con.prepareStatement(searchAutomovel);
             stmt.setInt(1, idveiculo);
             rs = stmt.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 return true;
             }
         } catch (SQLException ex) {
-            System.out.println("Erro ao identificar veiculo: " +ex.getMessage());
-        } finally{
+            System.out.println("Erro ao identificar veiculo: " + ex.getMessage());
+        } finally {
             try {
                 con.close();
                 stmt.close();
@@ -101,5 +101,4 @@ public class AutomovelDAO {
 //            }
 //        }
 //    }
-
 }
